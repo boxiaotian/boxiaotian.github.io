@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="css/PublicStyle.css">
+    <link rel="stylesheet" href="css/member_center.css">
+    <script src="js/web.js"></script>
+    <script src="js/jquery.js"></script>
+    <script>
+      var hrt = document.documentElement.clientHeight || window.innerHeight; //获取当前可视区域的高度存到hrt变量
+      window.onload = function () { //在页面整体加载完毕时
+        if(hrt<=568) {
+          $(".page>article").css("height","10rem")
+        } else {
+          $(".page>article").css("height","10.91rem")
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="page">
+      <article>
+        <article class="basic_info_xt">
+          <div class="info_xt">
+            <img src="image/portrait.png" alt="">
+            <div>
+              <p class="user_name">zhangsan</p>
+              <p>高级会员</p>
+            </div>
+          </div>
+          <div class="info_num_xt">
+            <div>
+              <span>260</span>
+              <p>积分</p>
+            </div>
+            <div>
+              <span>38</span>
+              <p>优惠券</p>
+            </div>
+            <div style="border:none">
+              <span>42</span>
+              <p>购物车</p>
+            </div>
+          </div>
+        </article>
+        <article class="my_xt my_order_xt">
+          <div class="title">我的订单</div>
+          <div class="order_type_xt">
+            <div>
+              <img src="image/to_be_shipped.png" alt="">
+              <p>待发货</p>
+            </div>
+            <div>
+              <img src="image/shipped.png" alt="">
+              <p>已发货</p>
+            </div>
+            <div>
+              <img src="image/completed.png" alt="">
+              <p>已完成</p>
+            </div>
+            <div>
+              <img src="image/all_orders.png" alt="">
+              <p>全部订单</p>
+            </div>
+          </div>
+        </article>
+        <article class="my_xt essential_tools_xt">
+          <div class="title">必备工具</div>
+          <div class="tool_type_xt">
+            <div>
+              <img src="image/coupon.png" alt="">
+              <p>优惠券</p>
+            </div>
+            <div>
+              <img src="image/shopping_cart.png" alt="">
+              <p>购物车</p>
+            </div>
+            <div>
+              <img src="image/collection.png" alt="">
+              <p>收藏</p>
+            </div>
+            <div>
+              <img src="image/receiving_address.png" alt="">
+              <p>收货地址</p>
+            </div>
+            <div>
+              <img src="image/report_deficiency.png" alt="">
+              <p>报缺</p>
+            </div>
+            <div>
+              <img src="image/certifications.png" alt="">
+              <p>资质认证</p>
+            </div>
+            <div>
+              <img src="image/customer_form.png" alt="">
+              <p>自定义表单</p>
+            </div>
+            <div>
+              <img src="image/bind_account.png" alt="">
+              <p>绑定账号</p>
+            </div>
+          </div>
+        </article>
+      </article>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,150 @@
+html, body, .page {
+  position: absolute;
+  background: #eee;
+}
+.page {
+  width: 100%;
+  min-height: 100%;
+}
+.page .search {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 6.9vh;
+  background: #f9f9f9;
+  border-bottom: 1px solid #d4d4d4;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.page .search a {
+  position: relative;
+  display: block;
+  width: .4rem;
+  height: .4rem;
+  margin-left: .33rem;
+}
+
+.page .search a:before {
+  position: absolute;
+  top: .08rem;
+  left: .1rem;
+  content: " ";
+  display: inline-block;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  height: .2rem;
+  width: .2rem;
+  border-width: 0 0 2px 2px;
+  border-color: #666;
+  border-style: solid;
+}
+
+.page .search img {
+  position: absolute;
+  top: .19rem;
+  left: .64rem;
+  width: .29rem;
+  height: .29rem;
+}
+.page .search input {
+	width: 4.68rem;
+  height: .64rem;
+  margin-left: .33rem;
+  padding: 0 .15rem 0 .75rem;
+	background-color: #fff;
+	border-radius: .64rem;
+}
+
+.page .search div {
+  height: .64rem;
+  font-size: 14px;
+  color: #ff5555;
+  text-align: center;
+  line-height: 0.64rem;
+}
+
+.page .popular {
+  width: 100%;
+  height: 32.61vh;
+  background: #fff;
+  color: #34373e;
+}
+
+.page .popular h6 {
+  display: flex;
+  align-items: center;
+  padding: .24rem;
+  font-size: 13px;
+}
+
+.page .popular img {
+  width: .32rem;
+  height: .4rem;
+  margin-right: .1rem;
+}
+
+.page .popular span {
+  float: left;
+	background-color: #ff5555;
+  padding: 0 .28rem;
+  border-radius: .47rem;
+  margin: 0 .15rem .24rem;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  line-height: .47rem;
+}
+
+.page .history {
+  width: 100%;
+  height: 58.85vh;
+  margin-top: 1.6vh;
+  background: #fff;
+}
+
+.page .history {
+  font-size: 13px;
+  color: #34373e;
+}
+.page .history .title_xt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 .25rem;
+  line-height: 1.05rem;
+}
+
+.history .title_xt .history_xt {
+  display: flex;
+  align-items: center;
+}
+
+
+.title_xt .history_xt img {
+  width: .32rem;
+  height: .32rem;
+  margin-right: .1rem;
+}
+
+.history .title_xt .empty {
+  width: .26rem;
+  height: .4rem;
+}
+
+.history ul li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: .21rem .25rem;
+}
+.history ul img {
+  width: .24rem;
+  height: .24rem;
+  margin-left: .16rem;
+}
