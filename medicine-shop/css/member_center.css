@@ -201,3 +201,15 @@ body,
   color: #fff;
   font-size: 15px;
 }
+
+.page .modify_window_xt .line_xt {
+  width: 1px;
+  height: 0.7rem;
+  background: #fff;
+}
+
+.page .modify_window_xt .close_xt {
+  width: 0.7rem;
+  height: 0.7rem;
+  cursor: pointer;
+}

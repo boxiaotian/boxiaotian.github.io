@@ -112,6 +112,10 @@
             <input type="password" placeholder="请再次输入新密码">
             <input type="button" value="提交">
           </article>
+          <div class="line_xt"></div>
+          <a href="javascript:;">
+            <img class="close_xt" src="image/close.png" alt="">
+          </a>
         </article>
       </article>
     </div>
@@ -123,6 +127,9 @@
         $(".modify_window_xt").show()
       })
       $("input[type='button']").click(function(){
+        $(".modify_window_xt").hide()
+      })
+      $(".close_xt").click(function () {
         $(".modify_window_xt").hide()
       })
     })
