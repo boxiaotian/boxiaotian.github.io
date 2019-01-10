@@ -24,80 +24,108 @@
             </div>
           </div>
           <div class="info_num_xt">
-            <div>
+            <a href="javascript:;">
               <span>260</span>
               <p>积分</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <span>38</span>
               <p>优惠券</p>
-            </div>
-            <div style="border:none">
+            </a>
+            <a style="border:none">
               <span>42</span>
               <p>购物车</p>
-            </div>
+            </a>
           </div>
         </article>
         <article class="my_xt my_order_xt">
           <div class="title">我的订单</div>
           <div class="order_type_xt">
-            <div>
+            <a href="javascript:;">
               <img src="image/to_be_shipped.png" alt="">
               <p>待发货</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/shipped.png" alt="">
               <p>已发货</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/completed.png" alt="">
               <p>已完成</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/all_orders.png" alt="">
               <p>全部订单</p>
-            </div>
+            </a>
           </div>
         </article>
         <article class="my_xt essential_tools_xt">
           <div class="title">必备工具</div>
           <div class="tool_type_xt">
-            <div>
+            <a href="javascript:;">
               <img src="image/coupon.png" alt="">
               <p>优惠券</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/shopping_cart.png" alt="">
               <p>购物车</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/collection.png" alt="">
               <p>收藏</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/receiving_address.png" alt="">
               <p>收货地址</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/report_deficiency.png" alt="">
               <p>报缺</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/certifications.png" alt="">
               <p>资质认证</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/customer_form.png" alt="">
               <p>自定义表单</p>
-            </div>
-            <div>
+            </a>
+            <a href="javascript:;">
               <img src="image/bind_account.png" alt="">
-              <p>绑定账号</p>
-            </div>
+              <p>解除绑定</p>
+            </a>
           </div>
+          <a href="javascript:;" class="logout_xt">退出登录</a>
+          <a href="javascript:;" class="change_password_xt">修改密码？</a>
+        </article>
+        <article class="modify_window_xt">
+          <article class="window_xt">
+            <div style="margin-bottom: .58rem;" class="info_xt">
+              <img style="margin-left: .31rem" src="image/portrait.png" alt="">
+              <div style="display: inline-grid;">
+                <p class="user_name">zhangsan</p>
+                <p>高级会员</p>
+              </div>
+            </div>
+            <input type="password" placeholder="请输入旧密码">
+            <input type="password" placeholder="请输入新密码">
+            <input type="password" placeholder="请再次输入新密码">
+            <input type="button" value="提交">
+          </article>
         </article>
       </article>
     </div>
   </body>
+  <script>
+    $(function () {
+      $(".modify_window_xt").hide()
+      $(".change_password_xt").click(function () {
+        $(".modify_window_xt").show()
+      })
+      $("input[type='button']").click(function(){
+        $(".modify_window_xt").hide()
+      })
+    })
+  </script>
 
 </html>
