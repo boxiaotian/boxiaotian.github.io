@@ -7,13 +7,13 @@ body,
 .page {
   width: 100%;
   min-height: 100%;
-  background-image: linear-gradient(90deg,#f14868 0%,#f47461 42%,#f7a05a 100%);
-  background-image: -webkit-linear-gradient(90deg,#f14868 0%,#f47461 42%,#f7a05a 100%);
-  background-image: -moz-linear-gradient(90deg,#f14868 0%,#f47461 42%,#f7a05a 100%);
-  background-image: -o-linear-gradient(90deg,#f14868 0%,#f47461 42%,#f7a05a 100%);
+  background-image: linear-gradient(90deg, #f14868 0%, #f47461 42%, #f7a05a 100%);
+  background-image: -webkit-linear-gradient(90deg, #f14868 0%, #f47461 42%, #f7a05a 100%);
+  background-image: -moz-linear-gradient(90deg, #f14868 0%, #f47461 42%, #f7a05a 100%);
+  background-image: -o-linear-gradient(90deg, #f14868 0%, #f47461 42%, #f7a05a 100%);
 }
 
-.page > article {
+.page>article {
   width: 7.2rem;
   height: 85.31vh;
   background-color: #f5f5f5;
@@ -32,19 +32,22 @@ body,
   line-height: 15px;
 }
 
-.page .basic_info_xt .info_xt,.modify_window_xt .window_xt .info_xt {
+.page .basic_info_xt .info_xt,
+.modify_window_xt .window_xt .info_xt {
   display: flex;
   flex-direction: row;
 }
 
-.page .basic_info_xt img,.modify_window_xt .window_xt img {
+.page .basic_info_xt img,
+.modify_window_xt .window_xt img {
   width: 2.36rem;
   height: 2.36rem;
   margin: -1.14rem .27rem 0 .46rem;
   border-radius: 50%;
 }
 
-.basic_info_xt .info_xt .user_name,.modify_window_xt .window_xt .user_name {
+.basic_info_xt .info_xt .user_name,
+.modify_window_xt .window_xt .user_name {
   display: inline-block;
   width: 4rem;
   height: .66rem;
@@ -131,6 +134,7 @@ body,
   margin-top: .49rem;
   width: 1.74rem;
 }
+
 .essential_tools_xt .tool_type_xt img {
   width: .5rem;
   height: .5rem;
@@ -138,17 +142,17 @@ body,
 }
 
 .page .essential_tools_xt .logout_xt {
-	width: 6.9rem;
+  width: 6.9rem;
   height: .59rem;
   margin: .58rem auto .36rem;
   border-radius: .08rem;
   line-height: 0.59rem;
   color: #fff;
   text-align: center;
-  background-image: linear-gradient(0deg,#fe872b 0%,#fe5b70 100%);
-  background-image: -webkit-linear-gradient(0deg,#fe872b 0%,#fe5b70 100%);
-  background-image: -moz-linear-gradient(0deg,#fe872b 0%,#fe5b70 100%);
-  background-image: -o-linear-gradient(0deg,#fe872b 0%,#fe5b70 100%);
+  background-image: linear-gradient(0deg, #fe872b 0%, #fe5b70 100%);
+  background-image: -webkit-linear-gradient(0deg, #fe872b 0%, #fe5b70 100%);
+  background-image: -moz-linear-gradient(0deg, #fe872b 0%, #fe5b70 100%);
+  background-image: -o-linear-gradient(0deg, #fe872b 0%, #fe5b70 100%);
 }
 
 .page .essential_tools_xt .change_password_xt {
@@ -173,10 +177,10 @@ body,
 .page .modify_window_xt .window_xt {
   display: flex;
   flex-direction: column;
-	width: 6.9rem;
-	height: 6.5rem;
-	background-color: #ffffff;
-	border-radius: .29rem;
+  width: 6.9rem;
+  height: 6.5rem;
+  background-color: #ffffff;
+  border-radius: .29rem;
 }
 
 .modify_window_xt .window_xt p {
@@ -185,11 +189,11 @@ body,
 }
 
 .modify_window_xt .window_xt input {
-	width: 5.58rem;
+  width: 5.58rem;
   height: .6rem;
   padding: 0 .18rem;
   margin: .3rem auto 0;
-	border-radius: .08rem;
+  border-radius: .08rem;
   border: solid 1px #949494;
 }
 
@@ -213,3 +217,173 @@ body,
   height: 0.7rem;
   cursor: pointer;
 }
+
+
+/* 小田的样式开始 */
+.bottom_function_xt {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 2.5rem;
+  background-color: #ffffff;
+  font-size: 11px;
+}
+
+.bottom_function_xt a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #666;
+}
+
+.bottom_function_xt .cart_icon {
+	width: 0.88rem;
+  height: 0.88rem;
+  margin: .25rem 0;
+}
+
+.bottom_function_xt .tuoyuan {
+  position: absolute;
+  top: .2rem;
+  right: -.2rem;
+	width: .3rem;
+	height: .3rem;
+}
+.bottom_function_xt .icon {
+  font-family: "icon" !important;
+  font-size: 1rem;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bottom_function_xt .icon_collect::before {
+  content: "\e61d";
+}
+.bottom_function_xt .icon_collectfill::before {
+  content: "\e61c";
+}
+.bottom_function_xt .num_xt {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  line-height: 1.4rem;
+}
+.bottom_function_xt .num_xt b {
+	width: 1.4rem;
+	height: 1.4rem;
+	background-color: #c6c6c6;
+}
+.bottom_function_xt .num_xt input {
+	width: 3.341rem;
+  height: 1.241rem;
+  margin: 0 .28rem;
+  border: solid 0.03rem #c6c6c6;
+  text-align: center;
+}
+
+.bottom_function_xt .add_cart {
+	width: 6rem;
+	height: 2.5rem;
+  background-color: #ff5555;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 2.5rem;
+}
+
+.lack_window {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+	width: 100%;
+	height: 12.18rem;
+  background-color: #ffffff;
+  font-size: 12px;
+  transform: translate3d(0, 100%, 0);
+  -webkit-transform: translate3d(0, 100%, 0);
+  transition-property: transform;
+  -webkit-transition-property: -webkit-transform;
+  transition-duration: 300ms;
+  -webkit-transition-duration: 300ms;
+}
+
+.lack_window .lack_top_xt {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 .7rem;
+}
+
+.lack_window .lack_top_xt .first_picture {
+  width: 4.18rem;
+  height: 4.18rem;
+  padding: .1rem;
+  margin-top: -1.5rem;
+	background-color: #ffffff;
+	box-shadow: 0 .08rem .1rem 0 rgba(0, 0, 0, 0.11);
+	border-radius: .18rem;
+}
+.lack_window .lack_top_xt .first_picture img {
+  width: 4.18rem;
+  height: 4.18rem;
+}
+.lack_window .lack_top_xt .close1_xt {
+  width: .83rem;
+  height: .83rem;
+  margin-top: .5rem;
+}
+.lack_window .lack_center_xt {
+  height: 6.05rem;
+  padding: 0 .7rem;
+  margin: .6rem 0;
+  line-height: 1.45rem;
+}
+.lack_window .lack_center_xt div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.lack_window .lack_bottom_xt {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 2.5rem;
+	background-color: #fff;
+	box-shadow: 0 -.1rem .25rem 0 rgba(4, 0, 0, 0.05);
+}
+
+.lack_window .lack_bottom_xt span {
+	width: 1.4rem;
+	height: 1.4rem;
+  background-color: #c6c6c6;
+  text-align: center;
+  line-height: 1.4rem;
+}
+.lack_window .lack_bottom_xt input {
+	width: 3.341rem;
+  height: 1.241rem;
+  margin: 0 .28rem;
+  border: solid 0.03rem #c6c6c6;
+  text-align: center;
+}
+.lack_window .lack_bottom_xt .lack_refer {
+	width: 9.38rem;
+	height: 2.5rem;
+  background-color: #ff5555;
+  font-size: 15px;
+  line-height: 2.5rem;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+}
+/* 小田的样式结束 */

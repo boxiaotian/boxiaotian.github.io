@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="font-size: 20px;">
 
   <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
     <title>个人中心</title>
     <link rel="stylesheet" href="css/PublicStyle.css">
     <link rel="stylesheet" href="css/member_center.css">
-    <script src="js/web.js"></script>
+    <!-- <script src="js/web.js"></script> -->
     <script src="js/jquery.js"></script>
   </head>
 
@@ -118,6 +118,57 @@
           </a>
         </article>
       </article>
+
+      <!-- <div class="bottom_function_xt">
+        <a style="margin-left: .73rem;" id="collect">
+          <span class="icon icon_collect"></span>
+          <span>收藏</span>
+        </a>
+        <a>
+          <span style="position: relative;">
+            <img class="cart_icon" src="image/gouwuche.png" alt="">
+            <img class="tuoyuan" src="image/tuoyuan.png" alt="">
+          </span>
+          <span>购物车</span>
+        </a>
+        <div class="num_xt">
+          <b>-</b>
+          <input type="number" value="0">
+          <b>+</b>
+        </div>
+        <a class="add_cart">加入购物车</a>
+      </div>
+      <div class="lack_window">
+        <div class="lack_top_xt">
+          <div class="first_picture">
+            <img src="image/logo.png" alt="">
+          </div>
+          <img class="close1_xt" src="image/close1.png" alt="">
+        </div>
+        <div class="lack_center_xt">
+          <div style="line-height: 1.73rem;justify-content: end;"><span style="font-weight: bold">诺得胜麻仁丸</span>&nbsp;30G/瓶</div>
+          <div>
+            <span>批号：</span>
+            <span>123456</span>
+          </div>
+          <div>
+            <span>厂家：</span>
+            <span>四川亦可制药有限公司</span>
+          </div>
+          <div>
+            <span>单位：</span>
+            <span>盒</span>
+          </div>
+        </div>
+        <div class="lack_bottom_xt">
+          <div style="display: flex;margin: 0 auto;">
+            <span>-</span>
+            <input type="number">
+            <span>+</span>
+          </div>
+          <div class="lack_refer">提交</div>
+        </div>
+      </div> -->
     </div>
   </body>
   <script>
@@ -126,11 +177,33 @@
       $(".change_password_xt").click(function () {
         $(".modify_window_xt").show()
       })
-      $("input[type='button']").click(function(){
+      $("input[type='button']").click(function () {
         $(".modify_window_xt").hide()
       })
       $(".close_xt").click(function () {
         $(".modify_window_xt").hide()
+      })
+
+      $("#collect").click(function () {
+        if ($(this).children(".icon_collect").is(".icon_collect")) {
+          $(this).css("color", "#ff5555")
+          $($(this).children(".icon_collect")[0]).removeClass("icon_collect")
+          $($(this).children("span")[0]).addClass("icon_collectfill")
+        } else if ($(this).children(".icon_collectfill").is(".icon_collectfill")) {
+          $(this).css("color", "#666")
+          $($(this).children(".icon_collectfill")[0]).removeClass("icon_collectfill")
+          $($(this).children("span")[0]).addClass("icon_collectfill")
+        }
+      })
+      $(".add_cart").click(function () {
+        $(".lack_window").css("z-index", "11")
+        $(".lack_window").css("transform", "translate3d(0, 0, 0)")
+        $(".lack_window").css("-webkit-transform", "translate3d(0, 0, 0)")
+      })
+      $(".close1_xt").click(function () {
+        $(".lack_window").css("transform", "translate3d(0, 100%, 0)")
+        $(".lack_window").css("-webkit-transform", "translate3d(0, 100%, 0)")
+        $(".lack_window").css("z-index", "9")
       })
     })
   </script>
