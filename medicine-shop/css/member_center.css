@@ -14,11 +14,10 @@ body,
 }
 
 .page>article {
-  width: 7.2rem;
   height: 85.31vh;
   background-color: #f5f5f5;
   border-radius: .2rem .2rem 0 0;
-  margin: 14.69vh auto 0;
+  margin: 14.69vh auto 1rem;
 }
 
 .page .basic_info_xt {
@@ -218,7 +217,43 @@ body,
   cursor: pointer;
 }
 
+.page .bottom_navigation_xt {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 1rem;
+  background: #fff;
+  font-size: 11px;
+  line-height: 11px;
+  text-align: center;
+  color: #666;
+}
 
+.page .bottom_navigation_xt div{
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.page .bottom_navigation_xt span {
+  display: block;
+}
+
+.page .bottom_navigation_xt img {
+  width: .4rem;
+  height: .42rem;
+}
+
+.page .bottom_navigation_xt .on_xt {
+  color: #ff5555;
+}
 /* 小田的样式开始 */
 .bottom_function_xt {
   position: fixed;
