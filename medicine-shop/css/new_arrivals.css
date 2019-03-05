@@ -14,3 +14,12 @@ body,
 .page article {
   margin-top: 4.13rem
 }
+
+.page article ul li {
+  float: left;
+	width: 3.6rem;
+  height: 4.65rem;
+  margin: 0 0 .1rem .1rem;
+	background: #ffffff;
+	border-radius: .12rem;
+}
