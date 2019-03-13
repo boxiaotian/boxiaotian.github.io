@@ -69,20 +69,20 @@ body,
   width: 94.2%;
   margin: .37rem .22rem;
   border-collapse: collapse;
-  border-color: #e8e8e8;
-  border: none;
   text-align: center;
 }
 
 .page table th {
   height: 0.48rem;
   background: #fafafa;
+  border: solid 1px #e8e8e8;
   color: #262626;
   line-height: 0.48rem;
 }
 
 .page table td {
   height: 0.59rem;
+  border: solid 1px #e8e8e8;
 }
 
 .page .totalAmount {
