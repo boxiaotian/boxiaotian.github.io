@@ -1,0 +1,142 @@
+html,
+body,
+.page {
+  position: absolute;
+}
+
+.page {
+  width: 100%;
+  min-height: 100%;
+  font-size: .24rem
+}
+
+.page>ul {
+  height: .8rem;
+  margin-bottom: .08rem;
+  border-bottom:  solid 1px #d9d9d9;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.page>ul li {
+  display: inline-block;
+  padding: .24rem .44rem;
+  margin-left: -.1rem;
+}
+
+.page>ul li.active{
+  background: #00c562;
+  color: #ffffff;
+}
+
+.page form input {
+  height: 0.5rem;
+  border: solid 1px #d9d9d9;
+  border-radius: .08rem;
+  padding: 0 .11rem;
+  margin-top: .12rem;
+}
+
+.page form input.single {
+  width: 91%;
+  margin: .12rem .22rem 0;
+}
+
+.page form input.double {
+  width: 41.8%;
+  margin-left: .22rem;
+}
+
+.page form button {
+  width: 45.2%;
+  height: 0.5rem;
+  margin: .2rem 0 0 .22rem;
+  border-radius: .08rem;
+}
+
+.page form button.submit {
+  background: #ff3300;
+  color: #ffffff;
+}
+
+.page form button.reset {
+  background: #ffffff;
+  border: solid 1px #d9d9d9;
+  color: #595959;
+}
+
+.page table {
+  width: 94.2%;
+  margin: .37rem .22rem;
+  border-collapse: collapse;
+  border-color: #e8e8e8;
+  border: none;
+  text-align: center;
+}
+
+.page table th {
+  height: 0.48rem;
+  background: #fafafa;
+  color: #262626;
+  line-height: 0.48rem;
+}
+
+.page table td {
+  height: 0.59rem;
+}
+
+.page .totalAmount {
+  float: right;
+  margin: 0 .22rem .5rem 0;
+  font-size: .3rem;
+}
+
+.page .totalAmount span {
+  font-weight: bold;
+}
+
+.page article {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  clear: both;
+}
+
+.page article .pagination_container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 5.28rem;;
+  height: .62rem;
+  margin: 0 .24rem;
+  border-radius: .31rem;
+  border: solid 1px #cccccc;
+  color: #333333;
+  font-size: .34rem;
+  text-align: center;
+  line-height: .62rem;
+}
+
+.page .pagination_container a {
+  width: .78rem;
+  height: .62rem;
+}
+
+.page .pagination_container li {
+  float: left;
+  width: 0.7rem;
+  height: .58rem;
+  border-right: solid 1px #cccccc;
+}
+
+.page .pagination_container li.activeLi {
+  background: #00cc66;
+  color: #ffffff;
+}
+.page article .leaf {
+  margin-left: .15rem;
+  color: #595959;
+  font-size: .42rem;
+}
