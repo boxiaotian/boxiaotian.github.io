@@ -10,5 +10,5 @@ function fnResize() {
   if (deviceWidth <= 320) {
     deviceWidth = 320
   }
-  document.documentElement.style.fontSize = (deviceWidth / 7.5) + 'px';
+  document.documentElement.style.fontSize = (deviceWidth / 5) + 'px';
 };
