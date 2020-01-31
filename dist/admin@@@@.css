@@ -1,0 +1,105 @@
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+}
+
+.el-progress,
+.el-progress--line {
+  width: 100% !important;
+  padding: 0 !important;
+  height: 6px !important;
+  background-color: tomato;
+  margin-top: -8px;
+}
+
+.el-progress-bar {
+  padding-right: 0;
+  margin: 0;
+}
+
+/* 进度条样式容器 */
+.global-progress
+  > .el-progress.el-progress--line
+  > .el-progress-bar
+  > .el-progress-bar__outer {
+  height: 2px !important;
+  background-color: unset;
+}
+
+.el-progress__text {
+  display: none;
+}
+
+.login-btn {
+  width: 360px !important;
+  margin-top: 24px;
+}
+
+.login-input > .el-input__inner {
+  width: 360px !important;
+  /* height: 64px!important; */
+  line-height: 64px;
+}
+
+.code-input > .el-input__inner {
+  width: 172px !important;
+  /* height: 64px!important; */
+  line-height: 64px;
+}
+
+/*在谷歌下移除input[number]的上下箭头*/
+.code-input > .el-input__inner,
+input[type="number"]::-webkit-outer-spin-button,
+.code-input > .el-input__inner,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+}
+
+/*在firefox下移除input[number]的上下箭头*/
+.code-input > .el-input__inner,
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.page-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f2;
+}
+
+.el-submenu__title {
+  text-align: left;
+}
+
+.el-menu-item {
+  text-align: left;
+}
+
+.inner-content {
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.flex {
+  display: box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-input {
+  width: 240px !important;
+}
