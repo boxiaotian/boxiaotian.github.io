@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0e4dfe"],{"91a1":function(e,n,t){"use strict";t.r(n);var u=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",[e._v(" 优惠券统计 ")])},c=[],l={},a=l,r=t("5511"),s=Object(r["a"])(a,u,c,!1,null,null,null);n["default"]=s.exports}}]);
-//# sourceMappingURL=chunk-2d0e4dfe.e1a29099.js.map
