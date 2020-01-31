@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d20eff1"],{b26a:function(n,e,t){"use strict";t.r(e);var u=function(){var n=this,e=n.$createElement,t=n._self._c||e;return t("div",[n._v(" 商品统计分析 ")])},c=[],l={},a=l,r=t("5511"),s=Object(r["a"])(a,u,c,!1,null,null,null);e["default"]=s.exports}}]);
