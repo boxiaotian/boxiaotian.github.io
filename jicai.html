@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>礼TA网 - 集采系统</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 自定义CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/jicai.css">
+    <!-- Font Awesome 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header id="header"></header>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <!-- 页面顶部横幅 -->
+        <section class="jicai-banner">
+            <div class="banner-bg">
+                <img src="images/jicai/jicai-banner-bg.jpg" alt="集采系统背景" class="d-block w-100">
+                <div class="banner-overlay"></div>
+            </div>
+            <div class="banner-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="text-white">集采系统</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html" class="text-white">首页</a></li>
+                                    <li class="breadcrumb-item active text-white" aria-current="page">集采系统</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="banner-mask"></div>
+            <div class="wave-bg">
+                <div class="wave1"></div>
+                <div class="wave2"></div>
+                <div class="wave3"></div>
+            </div>
+        </section>
+
+        <!-- 集采系统-礼品公司专属 -->
+        <section class="jicai-intro py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <h2 class="section-title mb-4">集采系统-礼品公司专属平台</h2>
+                        <div class="title-underline mb-4"></div>
+                        <p class="intro-text mb-4">礼TA网，成立于2011年，作为领先的礼品供应链服务平台，致力于为礼品企业提供以集采系统为核心的SaaS+供应链整体解决方案。</p>
+                        <p class="intro-text mb-4">我们的专业团队严选礼业优质供应商，通过先进SaaS平台为礼品公司提供一站式礼品商城搭建、全品类供应链资源共享（平台不赚差价）及PPT方案定制制作；旨在帮助礼品公司解决传统采销痛点，以供应链为基础，以互联网技术为载体，全面赋能礼品企业数字化转型升级，让礼品生意更加高效便捷！</p>
+                        <p class="intro-text mb-4">礼TA网是福建省商务礼品协会理事单位，拥有"礼业小程序"、"集采系统"等多项礼业软件著作权；整合3000+优质供应链资源，精选500+知名品牌入驻，已成功服务1600+礼品公司，打造行业领先数字化生态。</p>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="system-animation">
+                            <div class="animation-item" id="item1">
+                                <svg width="240" height="180" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="240" height="180" rx="10" fill="#6366F1" />
+                                    <circle cx="50" cy="50" r="20" fill="#FFFFFF" opacity="0.9" />
+                                    <circle cx="190" cy="50" r="20" fill="#FFFFFF" opacity="0.7" />
+                                    <circle cx="50" cy="130" r="20" fill="#FFFFFF" opacity="0.7" />
+                                    <circle cx="190" cy="130" r="20" fill="#FFFFFF" opacity="0.9" />
+                                    <path d="M50 50L190 50L190 130L50 130Z" stroke="#FFFFFF" stroke-width="4" fill="none" />
+                                    <path d="M70 90H170" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="8 4" />
+                                    <text x="120" y="100" text-anchor="middle" fill="#FFFFFF" font-weight="bold" font-size="12">数据分析</text>
+                                </svg>
+                            </div>
+                            <div class="animation-item" id="item2">
+                                <svg width="240" height="180" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="240" height="180" rx="10" fill="#3B82F6" />
+                                    <rect x="40" y="40" width="160" height="30" rx="4" fill="#FFFFFF" opacity="0.9" />
+                                    <rect x="40" y="80" width="160" height="30" rx="4" fill="#FFFFFF" opacity="0.7" />
+                                    <rect x="40" y="120" width="160" height="30" rx="4" fill="#FFFFFF" opacity="0.5" />
+                                    <circle cx="60" cy="55" r="8" fill="#3B82F6" />
+                                    <circle cx="60" cy="95" r="8" fill="#3B82F6" />
+                                    <circle cx="60" cy="135" r="8" fill="#3B82F6" />
+                                    <path d="M75 55H180" stroke="#3B82F6" stroke-width="2" />
+                                    <path d="M75 95H180" stroke="#3B82F6" stroke-width="2" />
+                                    <path d="M75 135H180" stroke="#3B82F6" stroke-width="2" />
+                                    <text x="120" y="20" text-anchor="middle" fill="#FFFFFF" font-weight="bold" font-size="12">供应链管理</text>
+                                </svg>
+                            </div>
+                            <div class="animation-item" id="item3">
+                                <svg width="240" height="180" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="240" height="180" rx="10" fill="#8B5CF6" />
+                                    <rect x="20" y="20" width="200" height="140" rx="6" fill="#FFFFFF" opacity="0.9" />
+                                    <rect x="30" y="30" width="180" height="30" rx="4" fill="#EEF2FF" />
+                                    <circle cx="45" cy="45" r="8" fill="#8B5CF6" />
+                                    <circle cx="70" cy="45" r="8" fill="#A78BFA" />
+                                    <circle cx="95" cy="45" r="8" fill="#C4B5FD" />
+                                    <rect x="30" y="70" width="80" height="80" rx="4" fill="#EEF2FF" />
+                                    <rect x="120" y="70" width="90" height="35" rx="4" fill="#EEF2FF" />
+                                    <rect x="120" y="115" width="90" height="35" rx="4" fill="#EEF2FF" />
+                                    <text x="70" y="110" text-anchor="middle" fill="#8B5CF6" font-weight="bold" font-size="12">用户界面</text>
+                                </svg>
+                            </div>
+                            <div class="animation-item" id="item4">
+                                <svg width="240" height="180" viewBox="0 0 240 180" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="240" height="180" rx="10" fill="#EC4899" />
+                                    <rect x="40" y="30" width="40" height="120" rx="4" fill="#FFFFFF" opacity="0.9" />
+                                    <rect x="90" y="50" width="40" height="100" rx="4" fill="#FFFFFF" opacity="0.8" />
+                                    <rect x="140" y="70" width="40" height="80" rx="4" fill="#FFFFFF" opacity="0.7" />
+                                    <rect x="190" y="90" width="40" height="60" rx="4" fill="#FFFFFF" opacity="0.6" />
+                                    <path d="M60 30L60 150" stroke="#EC4899" stroke-width="1" stroke-dasharray="3 2" />
+                                    <path d="M110 50L110 150" stroke="#EC4899" stroke-width="1" stroke-dasharray="3 2" />
+                                    <path d="M160 70L160 150" stroke="#EC4899" stroke-width="1" stroke-dasharray="3 2" />
+                                    <path d="M210 90L210 150" stroke="#EC4899" stroke-width="1" stroke-dasharray="3 2" />
+                                    <text x="120" y="170" text-anchor="middle" fill="#FFFFFF" font-weight="bold" font-size="12">数据统计</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 集采系统-核心优势 -->
+        <section class="jicai-features py-5 bg-light">
+            <div class="container">
+                <h2 class="section-title text-center mb-3">集采系统-核心竞争优势</h2>
+                <div class="title-underline-left mb-5"></div>
+                
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-advantage text-center">
+                            <div class="feature-image mb-4">
+                                <img src="https://img.freepik.com/free-vector/gradient-ui-ux-background_23-2149052117.jpg" alt="拥有自主礼品商城平台" class="img-fluid">
+                            </div>
+                            <h4 class="advantage-title mb-3">专属自主礼品商城平台</h4>
+                            <p class="advantage-desc">量身定制商城系统+海量优质资源共享+实时更新迭代，打造专业礼品企业品牌形象</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-advantage text-center">
+                            <div class="feature-image mb-4">
+                                <img src="https://img.freepik.com/free-vector/gradient-virtual-reality-background_52683-79725.jpg" alt="实用工具让办公更高效" class="img-fluid">
+                            </div>
+                            <h4 class="advantage-title mb-3">高效智能办公工具</h4>
+                            <p class="advantage-desc">PPT在线一键生成，10分钟精美方案；智能直通车查价系统，秒级获取底价和供应商</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-advantage text-center">
+                            <div class="feature-image mb-4">
+                                <img src="https://img.freepik.com/free-vector/gradient-network-connection-background_23-2149164685.jpg" alt="一站式解决您的互联网需求" class="img-fluid">
+                            </div>
+                            <h4 class="advantage-title mb-3">全方位互联网解决方案</h4>
+                            <p class="advantage-desc">专业运营、设计、技术团队，一对一售后服务，全程协助商城平台搭建和运营优化</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 细节服务-无可挑剔 -->
+        <section class="jicai-services py-5">
+            <div class="container">
+                <h2 class="section-title text-center mb-3">细节服务-精益求精</h2>
+                <div class="title-underline-left mb-5"></div>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="service-item d-flex">
+                            <div class="service-icon me-3">
+                                <i class="fas fa-globe text-primary"></i>
+                            </div>
+                            <div class="service-content">
+                                <h5>高质量域名资源</h5>
+                                <p>提供顶级国际域名，加盟商专属使用，免费注册备案；专业协助申请注册、认证独立小程序和公众号，无缝对接礼品商城系统。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="service-item d-flex">
+                            <div class="service-icon me-3">
+                                <i class="fas fa-sync-alt text-success"></i>
+                            </div>
+                            <div class="service-content">
+                                <h5>实时产品更新服务</h5>
+                                <p>礼TA网全程负责商城产品维护，每月更新500+优质产品，过时商品实时下架，让加盟商专注核心业务发展。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="service-item d-flex">
+                            <div class="service-icon me-3">
+                                <i class="fas fa-desktop text-info"></i>
+                            </div>
+                            <div class="service-content">
+                                <h5>专业平台运维服务</h5>
+                                <p>根据不同节日、季节变化，智能更新商城广告位、幻灯片、首页产品推荐，提升礼品公司专业形象与转化率。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="service-item d-flex">
+                            <div class="service-icon me-3">
+                                <i class="fas fa-file-powerpoint text-warning"></i>
+                            </div>
+                            <div class="service-content">
+                                <h5>智能PPT方案制作</h5>
+                                <p>创新PPT方案在线智能生成系统，根据客户需求，多维度筛选，仅需10分钟即可生成专业精美礼品方案，提升工作效率。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="service-item d-flex">
+                            <div class="service-icon me-3">
+                                <i class="fas fa-headset text-danger"></i>
+                            </div>
+                            <div class="service-content">
+                                <h5>一对一定制售后服务</h5>
+                                <p>全流程无缝衔接的售前售后服务，专属客服团队，一对一跟进，商城搭建、运营使用全程指导，助力礼品公司全面把握互联网红利。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="service-item d-flex">
+                            <div class="service-icon me-3">
+                                <i class="fas fa-search text-primary"></i>
+                            </div>
+                            <div class="service-content">
+                                <h5>特殊需求定制服务</h5>
+                                <p>针对客户指定的稀缺产品或特定品牌需求，我们的专业招商团队将全力协助寻找最匹配的产品和优质供应商，满足您的个性化需求。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 严选供应链—接单无忧 -->
+        <section class="jicai-selected-suppliers py-5 bg-light">
+            <div class="container">
+                <h2 class="section-title text-center mb-3">严选优质供应链—接单无忧</h2>
+                <div class="title-underline-left mb-5"></div>
+                <div class="row justify-content-center g-0" style="max-width: 960px; margin: 0 auto;">
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-1.png" alt="良品铺子" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-2.png" alt="茶艺师" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-3.png" alt="龙的" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-4.png" alt="奇华仕" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-5.png" alt="东方韵" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-6.png" alt="徽丁" class="img-fluid rounded-circle supplier-logo"></div>
+                    
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-7.png" alt="华帝" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-8.png" alt="酷家" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-9.png" alt="派克" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-10.png" alt="美的" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-11.png" alt="TRIES孚" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-12.png" alt="CaldiceKris" class="img-fluid rounded-circle supplier-logo"></div>
+                    
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-13.png" alt="火星" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-14.png" alt="品胜" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-15.png" alt="汉森美途" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-16.png" alt="纽曼" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-17.png" alt="im幻响" class="img-fluid rounded-circle supplier-logo"></div>
+                    <div class="col-4 col-md-2 mb-2"><img src="images/jicai/brand-18.png" alt="SWIZA" class="img-fluid rounded-circle supplier-logo"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 加盟流程—合作简单 -->
+        <section class="jicai-process py-5">
+            <div class="container">
+                <h2 class="section-title text-center mb-3">加盟流程—合作简单</h2>
+                <div class="title-underline-left mb-5"></div>
+                
+                <div class="process-tabs">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="process-tab active" data-target="phase1">
+                                <div class="phase-number">01</div>
+                                <h4>售前洽谈阶段</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="process-tab" data-target="phase2">
+                                <div class="phase-number">02</div>
+                                <h4>搭建准备阶段</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="process-tab" data-target="phase3">
+                                <div class="phase-number">03</div>
+                                <h4>商城部署阶段</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="process-tab" data-target="phase4">
+                                <div class="phase-number">04</div>
+                                <h4>售后支持阶段</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="process-content">
+                    <div id="phase1" class="process-phase active">
+                        <div class="row">
+                            <div class="col-md-4 mb-4 mb-md-0">
+                                <div class="phase-image">
+                                    <svg width="100%" height="240" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="300" rx="10" fill="#f8f9fa"/>
+                                        <circle cx="150" cy="120" r="70" fill="#e6effd"/>
+                                        <circle cx="250" cy="120" r="70" fill="#e6effd"/>
+                                        <path d="M150 150 Q 120 170, 100 150" stroke="#1A56DB" stroke-width="6" stroke-linecap="round" fill="none"/>
+                                        <path d="M250 150 Q 280 170, 300 150" stroke="#1A56DB" stroke-width="6" stroke-linecap="round" fill="none"/>
+                                        <circle cx="150" cy="100" r="40" fill="#FFFFFF" stroke="#1A56DB" stroke-width="3"/>
+                                        <circle cx="250" cy="100" r="40" fill="#FFFFFF" stroke="#1A56DB" stroke-width="3"/>
+                                        <circle cx="150" cy="100" r="5" fill="#1A56DB"/>
+                                        <circle cx="250" cy="100" r="5" fill="#1A56DB"/>
+                                        <rect x="130" y="210" width="140" height="50" rx="5" fill="#1A56DB"/>
+                                        <text x="200" y="240" text-anchor="middle" fill="white" font-size="16" font-weight="bold">售前洽谈</text>
+                                        <path d="M170 170 L 230 170" stroke="#1A56DB" stroke-width="8" stroke-linecap="round"/>
+                                        <path d="M180 125 L 220 125" stroke="#1A56DB" stroke-width="3" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="mb-4">售前洽谈阶段</h3>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>异议处理解答</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>功能分析讲解</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>端口展示确定</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>资质文件罗列</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>双方签订合同</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>付款并提供资料</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="phase2" class="process-phase">
+                        <div class="row">
+                            <div class="col-md-4 mb-4 mb-md-0">
+                                <div class="phase-image">
+                                    <svg width="100%" height="240" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="300" rx="10" fill="#f8f9fa"/>
+                                        <rect x="100" y="50" width="200" height="150" rx="8" fill="#e6effd" stroke="#1A56DB" stroke-width="3"/>
+                                        <rect x="120" y="80" width="160" height="100" rx="5" fill="#FFFFFF" stroke="#1A56DB" stroke-width="2"/>
+                                        <rect x="130" y="210" width="140" height="50" rx="5" fill="#1A56DB"/>
+                                        <text x="200" y="240" text-anchor="middle" fill="white" font-size="16" font-weight="bold">搭建准备</text>
+                                        <!-- 域名图标 -->
+                                        <text x="160" y="110" font-size="14" fill="#1A56DB" font-weight="bold">www.</text>
+                                        <text x="200" y="110" font-size="14" fill="#1A56DB" font-weight="bold">abc.com</text>
+                                        <!-- 小程序图标 -->
+                                        <rect x="140" y="130" width="30" height="30" rx="6" fill="#1A56DB"/>
+                                        <rect x="180" y="130" width="30" height="30" rx="6" fill="#4F46E5"/>
+                                        <rect x="220" y="130" width="30" height="30" rx="6" fill="#7C3AED"/>
+                                        <!-- 顶部工具栏 -->
+                                        <rect x="120" y="80" width="160" height="20" rx="5" fill="#1A56DB"/>
+                                        <circle cx="135" cy="90" r="4" fill="white"/>
+                                        <circle cx="150" cy="90" r="4" fill="white"/>
+                                        <circle cx="165" cy="90" r="4" fill="white"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="mb-4">搭建准备阶段</h3>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>域名注册并认证</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>公众号注册并认证</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>小程序注册认证</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>域名提交备案</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>异常备案问题处理</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>全程跟进审核流程</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="phase3" class="process-phase">
+                        <div class="row">
+                            <div class="col-md-4 mb-4 mb-md-0">
+                                <div class="phase-image">
+                                    <svg width="100%" height="240" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="300" rx="10" fill="#f8f9fa"/>
+                                        <!-- 背景元素 -->
+                                        <rect x="70" y="60" width="260" height="180" rx="10" fill="#e6effd"/>
+                                        <!-- 手机轮廓 -->
+                                        <rect x="120" y="30" width="80" height="160" rx="10" fill="#FFFFFF" stroke="#1A56DB" stroke-width="3"/>
+                                        <rect x="130" y="50" width="60" height="100" rx="4" fill="#f0f4ff"/>
+                                        <circle cx="160" cy="170" r="10" fill="#f0f4ff" stroke="#1A56DB" stroke-width="2"/>
+                                        <!-- 小程序界面元素 -->
+                                        <rect x="140" y="60" width="40" height="6" rx="3" fill="#1A56DB"/>
+                                        <rect x="140" y="75" width="40" height="20" rx="3" fill="#1A56DB" opacity="0.7"/>
+                                        <rect x="140" y="105" width="18" height="18" rx="3" fill="#1A56DB"/>
+                                        <rect x="162" y="105" width="18" height="18" rx="3" fill="#4F46E5"/>
+                                        <rect x="140" y="127" width="40" height="6" rx="3" fill="#1A56DB" opacity="0.5"/>
+                                        <!-- 电脑显示器 -->
+                                        <rect x="220" y="80" width="120" height="80" rx="4" fill="#FFFFFF" stroke="#1A56DB" stroke-width="3"/>
+                                        <rect x="225" y="85" width="110" height="60" rx="2" fill="#f0f4ff"/>
+                                        <rect x="250" y="160" width="60" height="10" rx="4" fill="#1A56DB"/>
+                                        <!-- 电脑界面元素 -->
+                                        <rect x="235" y="95" width="90" height="6" rx="3" fill="#1A56DB"/>
+                                        <rect x="235" y="110" width="40" height="25" rx="3" fill="#1A56DB" opacity="0.6"/>
+                                        <rect x="285" y="110" width="40" height="25" rx="3" fill="#4F46E5" opacity="0.6"/>
+                                        <!-- 标题 -->
+                                        <rect x="130" y="210" width="140" height="50" rx="5" fill="#1A56DB"/>
+                                        <text x="200" y="240" text-anchor="middle" fill="white" font-size="16" font-weight="bold">商城部署</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="mb-4">商城部署阶段</h3>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>小程序优先部署</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>公司信息配置上传</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>一级域名商城绑定</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>微信商城配置上线</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>微信支付申请绑定</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>配置账号信息交付</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="phase4" class="process-phase">
+                        <div class="row">
+                            <div class="col-md-4 mb-4 mb-md-0">
+                                <div class="phase-image">
+                                    <svg width="100%" height="240" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="400" height="300" rx="10" fill="#f8f9fa"/>
+                                        <!-- 背景圆 -->
+                                        <circle cx="200" cy="120" r="90" fill="#e6effd"/>
+                                        <!-- 耳机图标 -->
+                                        <circle cx="200" cy="100" r="50" fill="#FFFFFF" stroke="#1A56DB" stroke-width="3"/>
+                                        <path d="M 150 100 L 150 130 Q 150 140, 160 140 L 170 140 Q 180 140, 180 130 L 180 120" fill="none" stroke="#1A56DB" stroke-width="5" stroke-linecap="round"/>
+                                        <path d="M 250 100 L 250 130 Q 250 140, 240 140 L 230 140 Q 220 140, 220 130 L 220 120" fill="none" stroke="#1A56DB" stroke-width="5" stroke-linecap="round"/>
+                                        <path d="M 200 50 Q 150 50, 150 100" fill="none" stroke="#1A56DB" stroke-width="5" stroke-linecap="round"/>
+                                        <path d="M 200 50 Q 250 50, 250 100" fill="none" stroke="#1A56DB" stroke-width="5" stroke-linecap="round"/>
+                                        <!-- 支持图标 -->
+                                        <circle cx="150" cy="180" r="15" fill="#4F46E5"/>
+                                        <text x="150" y="185" text-anchor="middle" fill="white" font-size="14" font-weight="bold">?</text>
+                                        <circle cx="200" cy="180" r="15" fill="#1A56DB"/>
+                                        <text x="200" y="186" text-anchor="middle" fill="white" font-size="16">i</text>
+                                        <circle cx="250" cy="180" r="15" fill="#7C3AED"/>
+                                        <path d="M 243 180 L 250 187 L 257 173" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                        <!-- 标题 -->
+                                        <rect x="130" y="210" width="140" height="50" rx="5" fill="#1A56DB"/>
+                                        <text x="200" y="240" text-anchor="middle" fill="white" font-size="16" font-weight="bold">售后支持</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h3 class="mb-4">售后支持阶段</h3>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>首页展示排版协助</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>自有产品上架协助</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>方案自助下载指导</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>商城推广使用建议</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>产品定期维护更新</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="step-item">
+                                            <i class="fas fa-check-circle text-primary me-2"></i>
+                                            <span>数据库备份服务</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 礼业-一站式解决方案 -->
+        <section class="jicai-solutions py-5 bg-light">
+            <div class="container">
+                <h2 class="section-title text-center mb-3">礼业数字化一站式解决方案</h2>
+                <div class="title-underline-left mb-5"></div>
+                <p class="text-center mb-5">礼TA网，专注赋能礼品企业数字化升级；让每一家礼品企业，都拥有专属数字化平台！</p>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="solution-card p-4 rounded shadow-sm h-100">
+                            <div class="solution-icon mb-3">
+                                <div class="icon-circle bg-primary text-white">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                            </div>
+                            <h4>显著降低成本、提升运营效率</h4>
+                            <p>整合优质供应链资源，精准匹配终端需求，严选供应商体系确保采购无忧，实现效率提升与成本优化</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="solution-card p-4 rounded shadow-sm h-100">
+                            <div class="solution-icon mb-3">
+                                <div class="icon-circle bg-success text-white">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                            </div>
+                            <h4>数字化转型、重构营销模式</h4>
+                            <p>线上产品展示系统与智能方案生成平台，完美应对疫情挑战，打造礼品企业数字化营销新模式</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="solution-card p-4 rounded shadow-sm h-100">
+                            <div class="solution-icon mb-3">
+                                <div class="icon-circle bg-info text-white">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
+                            </div>
+                            <h4>提升客户粘性、促进转化率</h4>
+                            <p>专业化服务体系提升客户满意度，优质产品资源与智能平台工具助力礼品企业接单率显著提升</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数据统计 -->
+        <section class="jicai-stats py-5 bg-light">
+            <div class="container text-center">
+                <h2 class="section-title mb-5">服务实力数据</h2>
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-item">
+                            <h3 class="stat-number">1000+</h3>
+                            <p class="stat-text">优质礼品供应商</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-item">
+                            <h3 class="stat-number">500+</h3>
+                            <p class="stat-text">知名企业长期合作</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-item">
+                            <h3 class="stat-number">99.8%</h3>
+                            <p class="stat-text">客户满意度评分</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-item">
+                            <h3 class="stat-number">13年</h3>
+                            <p class="stat-text">行业专注服务经验</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 合作案例 -->
+        <section class="jicai-cases py-5">
+            <div class="container text-center">
+                <h2 class="section-title mb-5">成功合作案例</h2>
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <div class="case-item p-3">
+                            <div class="case-image mb-3">
+                                <svg width="100%" height="160" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="300" height="200" rx="10" fill="#f0f4ff"/>
+                                    <!-- 互联网公司/科技感图标 -->
+                                    <circle cx="150" cy="70" r="40" fill="#1A56DB" opacity="0.8"/>
+                                    <!-- 网络连接线 -->
+                                    <path d="M 100 100 Q 150 40, 200 100" stroke="#4F46E5" stroke-width="3" fill="none"/>
+                                    <path d="M 70 140 Q 150 90, 230 140" stroke="#4F46E5" stroke-width="3" fill="none"/>
+                                    <path d="M 100 160 Q 150 120, 200 160" stroke="#4F46E5" stroke-width="3" fill="none"/>
+                                    <!-- 连接节点 -->
+                                    <circle cx="100" cy="100" r="8" fill="#1A56DB"/>
+                                    <circle cx="200" cy="100" r="8" fill="#1A56DB"/>
+                                    <circle cx="70" cy="140" r="8" fill="#1A56DB"/>
+                                    <circle cx="230" cy="140" r="8" fill="#1A56DB"/>
+                                    <circle cx="100" cy="160" r="8" fill="#1A56DB"/>
+                                    <circle cx="200" cy="160" r="8" fill="#1A56DB"/>
+                                    <!-- 公司图标 -->
+                                    <g transform="translate(135, 55)">
+                                        <path d="M 0 0 L 15 15 L 30 0 L 15 -15 Z" fill="white"/>
+                                        <circle cx="15" cy="0" r="8" fill="#1A56DB"/>
+                                    </g>
+                                </svg>
+                            </div>
+                            <h5>知名互联网公司</h5>
+                            <p>员工福利系统定制</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="case-item p-3">
+                            <div class="case-image mb-3">
+                                <svg width="100%" height="160" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="300" height="200" rx="10" fill="#edf9ee"/>
+                                    <!-- 金融机构背景 -->
+                                    <rect x="60" y="40" width="180" height="120" rx="5" fill="#fff" stroke="#16a34a" stroke-width="2"/>
+                                    <!-- 建筑柱子 -->
+                                    <rect x="80" y="70" width="20" height="90" fill="#16a34a"/>
+                                    <rect x="120" y="70" width="20" height="90" fill="#16a34a"/>
+                                    <rect x="160" y="70" width="20" height="90" fill="#16a34a"/>
+                                    <rect x="200" y="70" width="20" height="90" fill="#16a34a"/>
+                                    <!-- 屋顶 -->
+                                    <path d="M 60 70 L 150 30 L 240 70 Z" fill="#16a34a"/>
+                                    <!-- VIP标志 -->
+                                    <circle cx="150" cy="130" r="25" fill="#fff" stroke="#16a34a" stroke-width="2"/>
+                                    <text x="150" y="138" font-family="Arial" font-size="20" font-weight="bold" text-anchor="middle" fill="#16a34a">VIP</text>
+                                </svg>
+                            </div>
+                            <h5>大型金融机构</h5>
+                            <p>VIP客户礼品定制</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="case-item p-3">
+                            <div class="case-image mb-3">
+                                <svg width="100%" height="160" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="300" height="200" rx="10" fill="#f0f7fa"/>
+                                    <!-- 工厂/制造业背景 -->
+                                    <rect x="50" y="100" width="200" height="60" rx="3" fill="#0369a1" opacity="0.8"/>
+                                    <!-- 工厂屋顶 -->
+                                    <path d="M 70 100 L 100 70 L 130 100" fill="#0369a1"/>
+                                    <path d="M 150 100 L 180 70 L 210 100" fill="#0369a1"/>
+                                    <!-- 烟囱 -->
+                                    <rect x="90" y="50" width="20" height="50" fill="#0369a1"/>
+                                    <path d="M 90 50 C 90 40, 110 40, 110 50" fill="#0369a1"/>
+                                    <rect x="180" y="40" width="20" height="60" fill="#0369a1"/>
+                                    <path d="M 180 40 C 180 30, 200 30, 200 40" fill="#0369a1"/>
+                                    <!-- 办公用品图标 -->
+                                    <rect x="120" y="115" width="60" height="30" rx="2" fill="white"/>
+                                    <rect x="130" y="110" width="40" height="5" fill="white"/>
+                                    <rect x="145" y="105" width="10" height="5" fill="white"/>
+                                </svg>
+                            </div>
+                            <h5>知名制造企业</h5>
+                            <p>全国办公用品采购</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="case-item p-3">
+                            <div class="case-image mb-3">
+                                <svg width="100%" height="160" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="300" height="200" rx="10" fill="#fff1f0"/>
+                                    <!-- 教育主题背景 -->
+                                    <rect x="60" y="60" width="180" height="100" rx="8" fill="#e11d48" opacity="0.8"/>
+                                    <!-- 书本图标 -->
+                                    <rect x="100" y="80" width="40" height="60" rx="2" fill="white"/>
+                                    <rect x="97" y="80" width="6" height="60" rx="2" fill="#e11d48"/>
+                                    <path d="M 100 80 L 100 140 C 80 140, 80 120, 100 120" fill="none" stroke="white" stroke-width="2"/>
+                                    <!-- 毕业帽 -->
+                                    <rect x="160" y="100" width="40" height="6" fill="white"/>
+                                    <path d="M 180 80 L 150 100 L 210 100 Z" fill="white"/>
+                                    <line x1="180" y1="80" x2="180" y2="70" stroke="white" stroke-width="2"/>
+                                    <circle cx="180" cy="68" r="3" fill="white"/>
+                                    <!-- 生日礼物图标 -->
+                                    <rect x="150" y="120" width="30" height="30" fill="#fff" stroke="#e11d48" stroke-width="2"/>
+                                    <rect x="165" y="110" width="1" height="10" fill="#e11d48"/>
+                                    <path d="M 150 130 L 180 130" stroke="#e11d48" stroke-width="2"/>
+                                    <path d="M 165 120 L 165 150" stroke="#e11d48" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <h5>大型教育集团</h5>
+                            <p>员工生日礼品系统</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚区域 -->
+    <footer id="footer"></footer>
+
+    <!-- Bootstrap 5 JS 和 Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 自定义JS -->
+    <script src="js/main.js"></script>
+    
+    <!-- 加盟流程选项卡切换脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有流程选项卡
+            const processTabs = document.querySelectorAll('.process-tab');
+            
+            // 为每个选项卡添加点击事件
+            processTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有选项卡的激活状态
+                    processTabs.forEach(t => t.classList.remove('active'));
+                    
+                    // 激活当前点击的选项卡
+                    this.classList.add('active');
+                    
+                    // 获取目标阶段ID
+                    const targetId = this.getAttribute('data-target');
+                    
+                    // 隐藏所有阶段内容
+                    document.querySelectorAll('.process-phase').forEach(phase => {
+                        phase.classList.remove('active');
+                    });
+                    
+                    // 显示目标阶段内容
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

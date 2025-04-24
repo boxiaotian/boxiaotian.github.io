@@ -1,1 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0a3ae8"],{"02e5":function(e,n,t){"use strict";t.r(n);var u=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",[e._v("仲裁统计分析")])},a=[],c={},l=c,r=t("5511"),s=Object(r["a"])(l,u,a,!1,null,null,null);n["default"]=s.exports}}]);
