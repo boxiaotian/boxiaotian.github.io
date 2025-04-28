@@ -13,7 +13,38 @@ $(document).ready(function() {
     // 绑定窗口滚动事件
     $(window).on('scroll', function() {
         checkScroll();
+        checkAnimations(); // 添加滚动时检查动画
     });
+    
+    // 页面加载完成后检查一次动画状态
+    $(window).on('load', function() {
+        checkAnimations();
+    });
+    
+    // 检查元素是否在视口中并触发动画
+    function checkAnimations() {
+        // 获取服务项目元素
+        const serviceItems = $('.service-item');
+        
+        // 检查每个服务项目是否在视口中
+        serviceItems.each(function() {
+            const item = $(this);
+            
+            // 元素位置信息
+            const itemTop = item.offset().top;
+            const itemHeight = item.outerHeight();
+            
+            // 视口信息
+            const windowHeight = $(window).height();
+            const windowScrollTop = $(window).scrollTop();
+            
+            // 检查元素是否足够进入视口
+            // 当元素的顶部进入视口底部200px时触发动画
+            if (itemTop < windowScrollTop + windowHeight - 200) {
+                item.addClass('animate');
+            }
+        });
+    }
     
     // 检查滚动位置并相应更新UI
     function checkScroll() {

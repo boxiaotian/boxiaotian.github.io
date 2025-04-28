@@ -37,7 +37,6 @@
 .banner-content {
     position: relative;
     z-index: 5;
-    padding: 120px 0 40px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -64,16 +63,21 @@
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* 底部异形遮罩 */
-.banner-mask {
+/* 底部波浪图片遮罩 */
+.wave-top {
     position: absolute;
     bottom: -2px; /* 向下延伸2px，避免底部出现线条 */
     left: 0;
     width: 100%;
-    height: 120px;
-    background-color: #fff;
-    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
     z-index: 4;
+}
+
+.wave-top svg {
+    display: block;
+    width: 100%;
+    height: 70px;
+    filter: drop-shadow(0px -2px 2px rgba(0, 0, 0, 0.1));
+    vertical-align: bottom;
 }
 
 /* 波浪效果 */
@@ -93,7 +97,7 @@
     width: 200%;
     height: 400%;
     border-radius: 45%;
-    background-color: rgba(79, 70, 229, 0.3);
+    background-color: rgba(79, 70, 229, 0.25);
     
     /* 设置wave1的位置 */
     position: absolute;
@@ -101,7 +105,7 @@
     left: -50%;
     
     /* 设置wave1的动画 */
-    animation: wave-anim 9s linear infinite;
+    animation: wave-anim 12s linear infinite;
 }
 
 .wave2 {
@@ -109,7 +113,7 @@
     width: 200%;
     height: 400%;
     border-radius: 45%;
-    background-color: rgba(79, 70, 229, 0.2);
+    background-color: rgba(79, 70, 229, 0.15);
     
     /* 设置wave2透明度 */
     opacity: 0.7;
@@ -120,7 +124,7 @@
     left: -30%;
     
     /* 设置wave2动画 */
-    animation: wave-anim 11s linear infinite;
+    animation: wave-anim 14s linear infinite;
 }
 
 .wave3 {
@@ -139,7 +143,26 @@
     left: -60%;
     
     /* 设置wave3的动画属性 */
-    animation: wave-anim 13s linear infinite;
+    animation: wave-anim 16s linear infinite;
+}
+
+.wave4 {
+    /* 设置wave4的尺寸属性 */
+    width: 210%;
+    height: 410%;
+    border-radius: 48%;
+    background-color: rgba(79, 70, 229, 0.05);
+    
+    /* 设置wave4透明度 */
+    opacity: 0.4;
+    
+    /* 设置wave4的位置属性 */
+    position: absolute;
+    top: 48%;
+    left: -55%;
+    
+    /* 设置wave4的动画属性 - 反向旋转 */
+    animation: wave-anim-reverse 18s linear infinite;
 }
 
 @keyframes wave-anim {
@@ -148,6 +171,16 @@
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* 添加反向波浪动画 */
+@keyframes wave-anim-reverse {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
     }
 }
 
@@ -402,8 +435,9 @@
 
 /* 响应式调整 */
 @media (max-width: 768px) {
-    .jicai-banner {
-        padding: 100px 0 30px;
+    
+    .jicai-banner h1 {
+        font-size: 2rem;
     }
     
     .supplier-logo {

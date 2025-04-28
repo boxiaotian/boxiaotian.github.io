@@ -9,6 +9,7 @@
     --border-color: #dee2e6;
     --border-radius: 8px;
     --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --animation-duration: 0.8s; /* 添加动画持续时间变量 */
 }
 
 body {
@@ -51,6 +52,8 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.5rem;
     display: flex;
     align-items: center;
+    margin-right: 0; /* 移除右边距 */
+    padding: 0;
 }
 
 .logo-text {
@@ -409,10 +412,35 @@ h1, h2, h3, h4, h5, h6 {
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity var(--animation-duration) ease, transform var(--animation-duration) ease;
+}
+
+.service-item.animate {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .service-icon {
     color: #fff;
+}
+
+/* 依次延迟动画效果 */
+.services-section .col-md-3:nth-child(1) .service-item {
+    transition-delay: 0s;
+}
+
+.services-section .col-md-3:nth-child(2) .service-item {
+    transition-delay: 0.15s;
+}
+
+.services-section .col-md-3:nth-child(3) .service-item {
+    transition-delay: 0.3s;
+}
+
+.services-section .col-md-3:nth-child(4) .service-item {
+    transition-delay: 0.45s;
 }
 
 /* 合作伙伴 */
@@ -641,5 +669,76 @@ footer {
     .partner-logo {
         height: 45px;
         margin-bottom: 20px;
+    }
+    
+    .service-item {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* 移动端导航菜单样式 */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        max-height: 80vh; /* 限制最大高度，避免超出屏幕 */
+        overflow-y: auto; /* 内容过多时可滚动 */
+    }
+    
+    .navbar-collapse .nav-link {
+        color: var(--text-color) !important;
+        padding: 0.7rem 1rem !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .navbar-collapse .nav-item:last-child .nav-link {
+        border-bottom: none;
+    }
+    
+    .navbar-collapse .nav-link:hover,
+    .navbar-collapse .nav-link.active {
+        color: var(--primary-color) !important;
+        background-color: rgba(26, 86, 219, 0.05);
+    }
+    
+    .navbar-collapse .login-link {
+        color: var(--primary-color) !important;
+        font-weight: 600;
+    }
+    
+    /* 导航栏切换按钮样式 */
+    .navbar-toggler {
+        border: none;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+    }
+    
+    /* 确保导航栏在滚动时固定在顶部 */
+    .navbar-scrolled {
+        padding: 0.5rem 0;
+        background-color: white !important;
+    }
+}
+
+/* 超小屏幕 */
+@media (max-width: 575.98px) {
+    .navbar-brand {
+        max-width: 150px; /* 限制logo最大宽度 */
+    }
+    
+    .navbar-collapse {
+        margin-left: -15px;
+        margin-right: -15px;
+        border-radius: 0;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar-toggler {
+        padding: 0.4rem 0.65rem;
     }
 } 
