@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邻家慧享 - 发布</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="status-bar.css" rel="stylesheet">
+    <link href="nav-bar.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C00',
+                        secondary: '#4CAF50',
+                        background: '#F8F8F8',
+                        textDark: '#333333',
+                        textLight: '#666666'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F8F8;
+            touch-action: manipulation;
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            margin: 20px auto;
+            background-color: #F8F8F8;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            background-color: #F8F8F8;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+        .status-bar {
+            height: 44px;
+            width: 100%;
+            background-color: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 5;
+        }
+        .header-bar {
+            height: 50px;
+            width: 100%;
+            background-color: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+        }
+        .content-area {
+            height: calc(100% - 44px - 83px - 50px - 60px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background-color: #F8F8F8;
+            padding: 0 16px;
+        }
+        .nav-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 83px;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 20%;
+        }
+        .nav-item.active {
+            color: #FF8C00;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .card-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .card-title i {
+            margin-right: 6px;
+            color: #FF8C00;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #EFEFEF;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background-color: #FAFAFA;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #FF8C00;
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.1);
+        }
+        .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #EFEFEF;
+            border-radius: 8px;
+            font-size: 14px;
+            min-height: 100px;
+            resize: none;
+            outline: none;
+            background-color: #FAFAFA;
+            transition: all 0.3s ease;
+        }
+        .form-textarea:focus {
+            border-color: #FF8C00;
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.1);
+        }
+        .image-upload {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .image-item {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-color: #FAFAFA;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            border: 1px dashed #E0E0E0;
+        }
+        .image-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-delete {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .upload-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #999;
+            font-size: 24px;
+        }
+        .upload-placeholder span {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        .submit-btn {
+            position: absolute; 
+            bottom: 103px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            padding: 14px 0;
+            background: linear-gradient(to right, #FF8C00, #FF6347);
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+            transition: all 0.3s ease;
+            border-radius: 30px;
+        }
+        .submit-btn:active {
+            transform: translateX(-50%) translateY(2px);
+            box-shadow: 0 2px 8px rgba(255, 140, 0, 0.3);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .select-container {
+            position: relative;
+            width: 100%;
+        }
+        .select-container::after {
+            content: '\f107';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            pointer-events: none;
+        }
+        .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #EFEFEF;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            appearance: none;
+            background-color: #FAFAFA;
+            transition: all 0.3s ease;
+        }
+        .form-select:focus {
+            border-color: #FF8C00;
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.1);
+        }
+        .price-input {
+            position: relative;
+        }
+        .price-input span {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        .price-input input {
+            padding-left: 28px;
+        }
+        .tab-bar {
+            display: flex;
+            background-color: white;
+            border-radius: 12px;
+            margin: 0 16px 16px 16px;
+            padding: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            font-size: 15px;
+            color: #666;
+            position: relative;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .tab-item.active {
+            color: white;
+            background-color: #FF8C00;
+            font-weight: 500;
+        }
+        .checkbox-group {
+            display: flex;
+            gap: 16px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .checkbox-item input {
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+            accent-color: #FF8C00;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="time font-semibold">9:41</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- 头部标题栏 -->
+            <div class="header-bar">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-chevron-left text-textDark"></i>
+                </a>
+                <h1 class="text-lg font-medium text-textDark">发布</h1>
+                <div class="w-5"></div>
+            </div>
+            
+            <!-- 选项卡 -->
+            <div class="tab-bar">
+                <div class="tab-item active" data-tab="idle">闲置转让</div>
+                <div class="tab-item" data-tab="parking">车位共享</div>
+            </div>
+            
+            <!-- 内容区域 -->
+            <div class="content-area">
+                <!-- 闲置转让表单 -->
+                <div id="idle-form" class="tab-content active">
+                    <!-- 基本信息卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-info-circle"></i> 基本信息</h3>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="添加标题，最多30字" maxlength="30">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="select-container">
+                                <select class="form-select">
+                                    <option value="" disabled selected>选择分类</option>
+                                    <option value="1">家居日用</option>
+                                    <option value="2">电子产品</option>
+                                    <option value="3">服装鞋帽</option>
+                                    <option value="4">母婴用品</option>
+                                    <option value="5">图书音像</option>
+                                    <option value="6">运动户外</option>
+                                    <option value="7">美妆个护</option>
+                                    <option value="8">其他</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="select-container">
+                                <select class="form-select">
+                                    <option value="" disabled selected>选择成色</option>
+                                    <option value="10">全新</option>
+                                    <option value="9">9成新</option>
+                                    <option value="8">8成新</option>
+                                    <option value="7">7成新</option>
+                                    <option value="6">6成新</option>
+                                    <option value="5">5成新及以下</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 价格卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-tag"></i> 转让价格</h3>
+                        
+                        <div class="form-group">
+                            <div class="price-input">
+                                <span>¥</span>
+                                <input type="number" class="form-input" placeholder="请输入转让价格">
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- 图片上传卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-image"></i> 上传图片（首图更吸引人~）</h3>
+                        <div class="image-upload">
+                            <div class="image-item">
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-plus"></i>
+                                    <span>添加</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 描述卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-align-left"></i> 描述</h3>
+                        <textarea class="form-textarea" placeholder="描述一下宝贝的品牌型号、货品来源、使用感受等信息..."></textarea>
+                    </div>
+                    
+                    <!-- 交易方式卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-handshake"></i> 交易方式</h3>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" checked>
+                                <span>自提</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox">
+                                <span>送货上门</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- 联系方式卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-phone"></i> 联系方式</h3>
+                        <input type="tel" class="form-input" placeholder="请输入手机号码">
+                    </div>
+                    
+                    <div class="h-24"></div> <!-- 底部空间占位 -->
+                </div>
+                
+                <!-- 车位共享表单 -->
+                <div id="parking-form" class="tab-content">
+                    <!-- 基本信息卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-info-circle"></i> 基本信息</h3>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="添加标题，最多30字" maxlength="30">
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="select-container">
+                                <select class="form-select">
+                                    <option value="" disabled selected>选择车位类型</option>
+                                    <option value="1">地上车位</option>
+                                    <option value="2">地下车位</option>
+                                    <option value="3">立体车位</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-input" placeholder="详细位置，如：xx小区地下停车场B1区12号">
+                        </div>
+                    </div>
+                    <!-- 价格卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-tag"></i> 价格设置</h3>
+                        
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-textDark mb-1">小时价格 (元/小时)</label>
+                            <div class="price-input">
+                                <span>¥</span>
+                                <input type="number" class="form-input" placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-textDark mb-1">天价格 (元/天)</label>
+                            <div class="price-input">
+                                <span>¥</span>
+                                <input type="number" class="form-input" placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-textDark mb-1">优惠价格 (可选)</label>
+                             <div class="price-input">
+                                 <span>¥</span>
+                                 <input type="number" class="form-input" placeholder="0.00">
+                             </div>
+                             <p class="text-xs text-textLight mt-1">可设置一个特殊优惠价格，如用于一个月起步</p>
+                        </div>
+
+                    </div>
+                    
+                    <!-- 图片上传卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-image"></i> 上传图片</h3>
+                        <div class="image-upload">
+                            <div class="image-item">
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-plus"></i>
+                                    <span>添加</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 描述卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-align-left"></i> 描述</h3>
+                        <textarea class="form-textarea" placeholder="描述一下车位的情况，如宽度、进出方便程度等信息..."></textarea>
+                    </div>
+                    
+                    <!-- 联系方式卡片 -->
+                    <div class="card">
+                        <h3 class="card-title"><i class="fas fa-phone"></i> 联系方式</h3>
+                        <input type="tel" class="form-input" placeholder="请输入手机号码">
+                    </div>
+                    
+                    <div class="h-24"></div> <!-- 底部空间占位 -->
+                </div>
+            </div>
+            
+            <!-- 提交按钮 -->
+            <button class="submit-btn">
+                <i class="fas fa-paper-plane mr-2"></i>发布
+            </button>
+            
+            <!-- 底部导航栏 -->
+            <div class="nav-bar">
+                <a href="index.html" class="nav-item text-textLight">
+                    <i class="fas fa-home text-xl mb-1"></i>
+                    <span class="text-xs">首页</span>
+                </a>
+                <a href="cart.html" class="nav-item text-textLight">
+                    <i class="fas fa-shopping-cart text-xl mb-1"></i>
+                    <span class="text-xs">购物车</span>
+                </a>
+                <div class="nav-item active">
+                    <div class="bg-primary w-12 h-12 rounded-full flex items-center justify-center -mt-5">
+                        <i class="fas fa-plus text-white text-xl"></i>
+                    </div>
+                    <span class="text-xs mt-1">发布</span>
+                </div>
+                <a href="message.html" class="nav-item text-textLight">
+                    <i class="fas fa-comment-dots text-xl mb-1"></i>
+                    <span class="text-xs">消息</span>
+                </a>
+                <a href="my.html" class="nav-item text-textLight">
+                    <i class="fas fa-user text-xl mb-1"></i>
+                    <span class="text-xs">我的</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 选项卡切换
+        document.querySelectorAll('.tab-item').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有选项卡的active类
+                document.querySelectorAll('.tab-item').forEach(t => {
+                    t.classList.remove('active');
+                });
+                
+                // 添加当前选项卡的active类
+                this.classList.add('active');
+                
+                // 获取当前选项卡对应的内容ID
+                const tabId = this.getAttribute('data-tab');
+                
+                // 隐藏所有内容
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // 显示当前选项卡对应的内容
+                document.getElementById(tabId + '-form').classList.add('active');
+            });
+        });
+        
+        // 模拟图片上传
+        document.querySelectorAll('.upload-placeholder').forEach(placeholder => {
+            placeholder.addEventListener('click', function() {
+                // 在实际应用中，这里应该触发文件选择
+                const imageUploadContainer = this.closest('.image-upload');
+                const imageItems = imageUploadContainer.querySelectorAll('.image-item');
+                
+                // 限制上传数量
+                const maxImages = imageUploadContainer.closest('#idle-form') ? 9 : 5;
+                if (imageItems.length >= maxImages) return;
+                
+                // 创建新的图片预览项
+                const newImageItem = document.createElement('div');
+                newImageItem.className = 'image-item';
+                
+                // 随机选择一个示例图片
+                const randomId = Math.floor(Math.random() * 1000);
+                
+                newImageItem.innerHTML = `
+                    <img src="https://picsum.photos/id/${randomId}/200/200" class="image-preview">
+                    <div class="image-delete">
+                        <i class="fas fa-times"></i>
+                    </div>
+                `;
+                
+                // 添加删除事件
+                newImageItem.querySelector('.image-delete').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    newImageItem.remove();
+                });
+                
+                // 将新图片项添加到容器中
+                imageUploadContainer.insertBefore(newImageItem, this.parentElement);
+                
+                // 如果达到最大数量，隐藏上传按钮
+                if (imageUploadContainer.querySelectorAll('.image-item').length >= maxImages) {
+                    this.parentElement.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

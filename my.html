@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>邻家慧享 - 我的</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="status-bar.css" rel="stylesheet">
+    <link href="nav-bar.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+              primary: "#FF8C00",
+              secondary: "#4CAF50",
+              background: "#F8F8F8",
+              textDark: "#333333",
+              textLight: "#666666",
+              yellow: "#FFDE59",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+        body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        background-color: #f8f8f8;
+            touch-action: manipulation;
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            margin: 20px auto;
+        background-color: #f8f8f8;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+        background-color: #f8f8f8;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+        .header-area {
+            background-color: white;
+            padding: 15px 20px 60px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+            transition: margin-bottom 0.3s ease;
+        }
+        .user-info {
+            padding: 20px 16px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+        }
+      .avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+            overflow: hidden;
+        background-color: #f5f5f5;
+            margin-right: 15px;
+        }
+        .user-name {
+        font-size: 18px;
+            font-weight: 600;
+        color: #333333;
+            margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        }
+      .user-name i {
+        font-size: 14px;
+        margin-left: 5px;
+      }
+      .user-id {
+            font-size: 12px;
+        color: #999999;
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 20;
+        }
+      .user-id span {
+        margin-right: 5px;
+      }
+      .header-actions {
+            display: flex;
+        }
+      .header-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        margin-left: 15px;
+        }
+      .header-action-icon {
+        width: 24px;
+        height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        color: #333333;
+        font-size: 20px;
+        }
+      .header-action-text {
+            font-size: 12px;
+        color: #666666;
+        margin-top: 2px;
+        }
+      .promo-banner {
+        background-color: #ffde59;
+            padding: 15px;
+        border-radius: 10px;
+        margin: 0 15px 15px;
+            display: flex;
+            align-items: center;
+        justify-content: space-between;
+        }
+      .promo-text {
+        flex: 1;
+        font-size: 14px;
+        font-weight: 500;
+        color: #333333;
+        }
+      .promo-image {
+        width: 50px;
+        height: 50px;
+      }
+      .stats-row {
+        position: relative;
+        z-index: 5;
+            display: flex;
+        justify-content: space-around;
+        background-color: white;
+        padding: 15px 0;
+        margin: 0 15px 10px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        }
+      .stats-row.with-balance {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        margin-top: 0;
+      }
+      .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+      .stat-value {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333333;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: #666666;
+        margin-top: 2px;
+      }
+      .tips-bar {
+        background-color: white;
+        padding: 12px 15px;
+        margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+      }
+      .tips-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+      }
+      .tips-text {
+        font-size: 13px;
+            color: #666666;
+        flex: 1;
+      }
+      .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333333;
+        padding: 15px;
+        background-color: white;
+        border-bottom: 1px solid #f5f5f5;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        margin: 0 15px;
+        margin-bottom: 0;
+        }
+      .function-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        background-color: white;
+        padding: 10px 0;
+        margin: 0 15px 10px;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        }
+      .function-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        padding: 10px 0;
+        }
+      .function-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 22.5px;
+        background-color: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666666;
+            font-size: 20px;
+            margin-bottom: 5px;
+        position: relative;
+        }
+      .function-text {
+            font-size: 12px;
+            color: #666666;
+            text-align: center;
+        }
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+        background-color: #ff3b30;
+            color: white;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+      .content-area {
+        height: calc(100% - 44px - 83px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .content-area.with-balance {
+        margin-top: 0;
+      }
+      .role-selector {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        padding: 5px;
+        z-index: 100;
+        width: 200px;
+      }
+      .role-option {
+        flex: 1;
+        text-align: center;
+        padding: 8px 0;
+        border-radius: 15px;
+        font-size: 12px;
+      }
+      .role-option.active {
+        background-color: #ff8c00;
+        color: white;
+      }
+        .balance-card {
+        position: relative;
+        z-index: 10;
+        background: linear-gradient(135deg, #ffde59, #ffd000);
+        border-radius: 12px 12px 0 0;
+        margin: 0 15px;
+        padding: 15px;
+        color: #333333;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 0;
+        transition: all 0.3s ease;
+      }
+      .balance-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .balance-value {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .balance-actions {
+        display: flex;
+        margin-top: 10px;
+      }
+      .balance-action {
+        background-color: rgba(255, 255, 255, 0.3);
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        margin-right: 10px;
+      }
+      .balance-mascot {
+        position: absolute;
+        right: 10px;
+        bottom: -10px;
+        width: 70px;
+        height: 70px;
+      }
+      .role-switcher {
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 140, 0, 0.1);
+        border-radius: 15px;
+        padding: 4px 10px;
+        margin-top: 5px;
+        position: relative;
+        z-index: 20;
+      }
+      .role-switcher-icon {
+        color: #ff8c00;
+        font-size: 12px;
+        margin-right: 5px;
+      }
+      .role-switcher-text {
+        font-size: 12px;
+        color: #666666;
+      }
+      .role-switcher-current {
+        color: #ff8c00;
+        font-weight: 500;
+        margin-left: 2px;
+      }
+      .role-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: 120px;
+        z-index: 200;
+        overflow: hidden;
+        display: none;
+        margin-top: 5px;
+      }
+      .role-dropdown.show {
+        display: block;
+      }
+      .role-dropdown-item {
+        padding: 10px;
+        font-size: 12px;
+        text-align: center;
+        border-bottom: 1px solid #f5f5f5;
+      }
+      .role-dropdown-item:last-child {
+        border-bottom: none;
+      }
+      .role-dropdown-item.active {
+        color: #ff8c00;
+        font-weight: 500;
+      }
+      .main-content {
+        position: absolute;
+        z-index: 5;
+        top: 105px;
+        left: 0;
+        width: 100%;
+        transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+          <div class="time font-semibold">23:24</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- 头部用户信息区 -->
+            <div class="header-area">
+                <div class="user-info">
+            <div class="avatar">
+              <img
+                src="https://picsum.photos/id/64/120/120"
+                alt="用户头像"
+                class="w-full h-full object-cover"
+              />
+                    </div>
+                    <div>
+              <div class="user-name">
+                你还在想我 <i class="fas fa-chevron-right text-gray-400"></i>
+              </div>
+              <div class="user-id" id="roleSelector">
+                <div class="role-switcher">
+                  <div class="role-switcher-icon">
+                    <i class="fas fa-sync-alt"></i>
+                        </div>
+                  <div class="role-switcher-text">
+                    切换身份：<span
+                      class="role-switcher-current"
+                      id="currentRole"
+                      >用户</span
+                    >
+                    </div>
+                </div>
+                <div class="role-dropdown" id="roleDropdown">
+                  <div class="role-dropdown-item active" data-role="user">
+                    用户
+                  </div>
+                  <div class="role-dropdown-item" data-role="teamLeader">
+                    团长
+                  </div>
+                  <div class="role-dropdown-item" data-role="supplier">
+                    供应商
+                  </div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+          <div class="header-actions">
+            <div class="header-action">
+              <div class="header-action-icon">
+                <i class="far fa-comment-dots"></i>
+                        </div>
+              <div class="header-action-text">客服</div>
+                    </div>
+            <div class="header-action">
+              <div class="header-action-icon">
+                <i class="fas fa-cog"></i>
+                        </div>
+              <div class="header-action-text">设置</div>
+                    </div>
+                </div>
+
+          <div class="main-content">
+            <!-- 团长余额卡片（团长角色显示） -->
+            <div class="balance-card hidden" id="teamLeaderBalance">
+              <div class="balance-title">
+                <span>我的余额</span>
+                <span><i class="fas fa-chevron-right"></i></span>
+              </div>
+              <div class="balance-value">¥ 1,234.56</div>
+            </div>
+            
+            <!-- 内容区域 -->
+            <div class="content-area" id="contentArea">
+              <!-- 数据统计 -->
+              <div class="stats-row" id="statsRow">
+                <div class="stat-item">
+                  <div class="stat-value">0</div>
+                  <div class="stat-label">我的闲置</div>
+                    </div>
+                <div class="stat-item">
+                  <div class="stat-value">0</div>
+                  <div class="stat-label">我的车位</div>
+                            </div>
+                <div class="stat-item">
+                  <div class="stat-value">0</div>
+                  <div class="stat-label">我的收藏</div>
+                        </div>
+                <div class="stat-item">
+                  <div class="stat-value">0</div>
+                  <div class="stat-label">我的订阅</div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+        <!-- 我的交易 -->
+        <div class="section-title">我的交易</div>
+        <div
+          class="function-grid"
+          style="border-top-left-radius: 0; border-top-right-radius: 0"
+        >
+          <div class="function-item">
+            <div class="function-icon">
+              <i class="fas fa-shopping-basket"></i>
+              <div class="badge">1</div>
+            </div>
+            <div class="function-text">团购订单</div>
+                    </div>
+          <div class="function-item">
+            <div class="function-icon">
+              <i class="fas fa-exchange-alt"></i>
+              <div class="badge">1</div>
+                            </div>
+            <div class="function-text">闲置转让</div>
+                        </div>
+          <div class="function-item">
+            <div class="function-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+            <div class="function-text">车位共享</div>
+                        </div>
+          <div class="function-item">
+            <div class="function-icon">
+              <i class="fas fa-star"></i>
+                            </div>
+            <div class="function-text">待评价</div>
+                        </div>
+                            </div>
+
+        <!-- 更多功能 -->
+        <div class="function-grid">
+          <!-- 通用功能 -->
+          <div class="function-item">
+            <div class="function-icon">
+              <i class="fas fa-user-tie"></i>
+                        </div>
+            <div class="function-text">团长入驻</div>
+                            </div>
+          <div class="function-item">
+            <div class="function-icon">
+              <i class="fas fa-store"></i>
+                        </div>
+            <div class="function-text">供应商入驻</div>
+                            </div>
+          <div class="function-item">
+            <div class="function-icon">
+              <i class="fas fa-qrcode"></i>
+                        </div>
+            <div class="function-text">提货码</div>
+                </div>
+                
+          <!-- 团长功能 -->
+          <div class="function-item team-leader-feature hidden">
+            <div class="function-icon">
+              <i class="fas fa-tasks"></i>
+                        </div>
+            <div class="function-text">审核任务</div>
+                        </div>
+          <div class="function-item team-leader-feature hidden">
+            <div class="function-icon">
+              <i class="fas fa-check-circle"></i>
+                    </div>
+            <div class="function-text">商品核销</div>
+                        </div>
+          <div class="function-item team-leader-feature hidden">
+            <div class="function-icon">
+              <i class="fas fa-clipboard-list"></i>
+                        </div>
+            <div class="function-text">帮卖订单</div>
+                    </div>
+          <div class="function-item team-leader-feature hidden">
+            <div class="function-icon">
+              <i class="fas fa-map-marker-alt"></i>
+                        </div>
+            <div class="function-text">自提点</div>
+                        </div>
+
+          <!-- 供应商功能 -->
+          <div class="function-item supplier-feature hidden">
+            <div class="function-icon">
+              <i class="fas fa-boxes"></i>
+                    </div>
+            <div class="function-text">商品库</div>
+                        </div>
+          <div class="function-item supplier-feature hidden">
+            <div class="function-icon">
+              <i class="fas fa-file-invoice"></i>
+                        </div>
+            <div class="function-text">供货订单</div>
+                    </div>
+          <div class="function-item supplier-feature hidden">
+            <div class="function-icon">
+              <i class="fas fa-truck-loading"></i>
+                        </div>
+            <div class="function-text">供货收货</div>
+                        </div>
+          <div class="function-item supplier-feature hidden">
+            <div class="function-icon">
+              <i class="fas fa-users"></i>
+                    </div>
+            <div class="function-text">帮卖团长</div>
+                </div>
+            </div>
+            
+            <!-- 底部导航栏 -->
+            <div class="nav-bar">
+                <a href="index.html" class="nav-item text-textLight">
+                    <i class="fas fa-home text-xl mb-1"></i>
+                    <span class="text-xs">首页</span>
+                </a>
+                <a href="cart.html" class="nav-item text-textLight">
+                    <i class="fas fa-shopping-cart text-xl mb-1"></i>
+                    <span class="text-xs">购物车</span>
+                </a>
+                <a href="publish.html" class="nav-item text-textLight">
+                    <div class="bg-primary w-12 h-12 rounded-full flex items-center justify-center -mt-5">
+                        <i class="fas fa-plus text-white text-xl"></i>
+                    </div>
+                    <span class="text-xs mt-1">发布</span>
+                </a>
+                <a href="message.html" class="nav-item text-textLight">
+                    <i class="fas fa-comment-dots text-xl mb-1"></i>
+                    <span class="text-xs">消息</span>
+                </a>
+                <div class="nav-item active">
+                    <i class="fas fa-user text-xl mb-1"></i>
+                    <span class="text-xs">我的</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 角色切换功能
+      const roleSelector = document.getElementById("roleSelector");
+      const roleSwitcher = document.querySelector(".role-switcher");
+      const roleDropdown = document.getElementById("roleDropdown");
+      const roleItems = document.querySelectorAll(".role-dropdown-item");
+      const currentRole = document.getElementById("currentRole");
+      const teamLeaderFeatures = document.querySelectorAll(
+        ".team-leader-feature"
+      );
+      const supplierFeatures = document.querySelectorAll(".supplier-feature");
+      const teamLeaderBalance = document.getElementById("teamLeaderBalance");
+      const contentArea = document.getElementById("contentArea");
+      const statsRow = document.getElementById("statsRow");
+      const headerArea = document.querySelector(".header-area");
+
+      // 初始化header-area的margin-bottom
+      document.addEventListener('DOMContentLoaded', function() {
+        // 获取初始角色
+        const initialRole = document.querySelector('.role-dropdown-item.active').getAttribute('data-role');
+        if (initialRole === "teamLeader") {
+          headerArea.style.marginBottom = "100px";
+            } else {
+          headerArea.style.marginBottom = "15px";
+            }
+        });
+        
+      // 点击角色选择器显示/隐藏下拉菜单
+      roleSwitcher.addEventListener("click", function (e) {
+        e.stopPropagation();
+        roleDropdown.classList.toggle("show");
+      });
+
+      // 点击页面其他地方隐藏下拉菜单
+      document.addEventListener("click", function () {
+        roleDropdown.classList.remove("show");
+      });
+
+      // 防止点击下拉菜单本身时关闭
+      roleDropdown.addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+
+      // 角色选择
+      roleItems.forEach((item) => {
+        item.addEventListener("click", function (e) {
+          e.stopPropagation();
+
+          // 移除所有选项的active类
+          roleItems.forEach((opt) => opt.classList.remove("active"));
+
+          // 添加当前选项的active类
+          this.classList.add("active");
+
+          // 获取当前角色
+          const role = this.getAttribute("data-role");
+
+          // 更新显示的角色名称
+          currentRole.textContent = this.textContent;
+        
+          // 根据角色显示/隐藏特定功能
+          if (role === "teamLeader") {
+            teamLeaderFeatures.forEach((item) =>
+              item.classList.remove("hidden")
+            );
+            supplierFeatures.forEach((item) => item.classList.add("hidden"));
+            teamLeaderBalance.classList.remove("hidden");
+            contentArea.classList.add("with-balance");
+            statsRow.classList.add("with-balance");
+            headerArea.style.marginBottom = "110px";
+          } else if (role === "supplier") {
+            teamLeaderFeatures.forEach((item) => item.classList.add("hidden"));
+            supplierFeatures.forEach((item) => item.classList.remove("hidden"));
+            teamLeaderBalance.classList.add("hidden");
+            contentArea.classList.remove("with-balance");
+            statsRow.classList.remove("with-balance");
+            headerArea.style.marginBottom = "15px";
+          } else {
+            teamLeaderFeatures.forEach((item) => item.classList.add("hidden"));
+            supplierFeatures.forEach((item) => item.classList.add("hidden"));
+            teamLeaderBalance.classList.add("hidden");
+            contentArea.classList.remove("with-balance");
+            statsRow.classList.remove("with-balance");
+            headerArea.style.marginBottom = "15px";
+          }
+
+          // 隐藏下拉菜单
+          roleDropdown.classList.remove("show");
+
+          console.log(`切换为${role}角色`);
+            });
+        });
+        
+      // 功能项点击事件
+      const functionItems = document.querySelectorAll(".function-item");
+      functionItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          // 这里可以添加点击功能项后的跳转逻辑
+          console.log("功能项被点击");
+            });
+        });
+    </script>
+</body>
+</html>

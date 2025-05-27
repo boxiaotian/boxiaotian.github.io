@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>邻家慧享 - 车位详情</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C00',
+                        secondary: '#4CAF50',
+                        background: '#F8F8F8',
+                        textDark: '#333333',
+                        textLight: '#666666'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F8F8;
+            touch-action: manipulation; /* 防止默认触摸行为，如双击放大 */
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px; /* 标准 iPhone 高度 */
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden; /* 关键：用于包含屏幕内容 */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px; /* 与容器圆角匹配 */
+            overflow: hidden; /* 确保内容保持在屏幕边界内 */
+            background-color: #F8F8F8; /* 在这里使用背景色 */
+            display: flex; /* 使用 flex 管理头部、图片、内容、底部 */
+            flex-direction: column;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 20; /* 更高的 z-index */
+        }
+        .status-bar {
+            height: 44px; /* 标准状态栏高度 */
+            width: 100%;
+            background-color: white; /* 状态栏背景色 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 15; /* 在 Notch 下方 */
+            flex-shrink: 0; /* 防止在 flex 列中缩小 */
+        }
+        .header-bar {
+            height: 50px; /* 头部导航高度 */
+            width: 100%;
+            background-color: white; /* 头部导航背景色 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #f0f0f0; /* 底部细线 */
+            flex-shrink: 0; /* 防止缩小 */
+            z-index: 10;
+        }
+
+        .parking-image-area {
+             width: 100%;
+             height: 250px; /* 图片区域高度，可调整 */
+             overflow: hidden;
+             position: relative;
+        }
+        .parking-image-area img {
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+        }
+
+        .content-area {
+             flex-grow: 1; /* 允许内容占据剩余空间 */
+             overflow-y: auto; /* 启用滚动 */
+             -webkit-overflow-scrolling: touch;
+             background: #F8F8F8; /* 内容区域背景色 */
+             /* padding added in HTML for simplicity */
+             padding-bottom: 70px; /* 底部留白，为固定底部操作栏留空间 */
+        }
+        .bottom-bar {
+            height: 70px; /* 固定底部操作栏高度 */
+            width: 100%;
+            background-color: white; /* 背景色 */
+            display: flex;
+            justify-content: center; /* 水平居中内容 */
+            align-items: center;
+            padding: 0 16px;
+            border-top: 1px solid #f0f0f0; /* 顶部细线 */
+            flex-shrink: 0; /* 防止缩小 */
+            position: absolute; /* 相对于 phone-screen 的绝对定位 */
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .section-card {
+             background-color: white; /* 卡片背景色 */
+             border-radius: 8px;
+             margin: 10px 16px; /* 水平外边距，垂直外边距 */
+             padding: 16px;
+             box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* 轻微阴影 */
+        }
+        .publisher-avatar {
+             width: 40px;
+             height: 40px;
+             border-radius: 9999px;
+             object-fit: cover;
+             margin-right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="time font-semibold">9:41</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+
+            <!-- 头部标题栏 -->
+            <div class="header-bar">
+                <button onclick="window.history.back()" class="mr-3 text-xl text-textDark focus:outline-none">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h1 class="text-lg font-bold text-textDark flex-1 text-center">车位详情</h1>
+                <div class="w-6"></div> <!-- 标题居中的占位符 -->
+            </div>
+
+            <!-- 内容区域 (滚动部分) -->
+            <div class="content-area">
+                <!-- 车位图片区域 -->
+                <div class="parking-image-area">
+                    <img src="https://picsum.photos/id/1080/375/250" alt="车位图片">
+                    <!-- 可在此处添加图片指示器或轮播图控件 -->
+                </div>
+
+                <!-- 车位基础信息区 -->
+                <div class="section-card mt-0 mb-2">
+                    <h2 class="text-xl font-bold text-textDark mb-2">阳光花园小区车位共享</h2>
+                    <div class="flex items-baseline mb-3">
+                        <span class="text-primary font-bold text-2xl mr-2">¥ 5<span class="text-base font-normal">/小时</span></span>
+                    </div>
+                    <div class="text-sm text-textLight">
+                         位置：阳光花园小区 A区地下二层
+                    </div>
+                </div>
+
+                <!-- 发布者信息区 -->
+                 <div class="section-card mb-2 flex items-center">
+                     <img src="https://picsum.photos/id/1011/40/40" alt="发布者头像" class="publisher-avatar">
+                     <div class="flex-1">
+                         <div class="font-medium text-textDark">社区王先生</div>
+                         <div class="text-xs text-textLight flex items-center gap-1">
+                             <i class="fas fa-users"></i>
+                             <span>2.3k 粉丝</span>
+                         </div>
+                     </div>
+                     <button class="bg-secondary text-white px-4 py-1.5 rounded-lg text-sm font-medium hover:bg-opacity-90 transition-colors" onclick="handleSubscribe(this)">
+                         订阅
+                     </button>
+                 </div>
+
+                <!-- 详细描述与规则区 -->
+                <div class="section-card mb-2">
+                    <h3 class="base font-bold text-textDark mb-2">详细描述与收费标准</h3>
+                    <div class="text-sm text-textLight mb-4">
+                        <p>我的私家车位，工作日白天闲置。靠近小区北门，进出方便。预定时请备注车辆信息。</p>
+                         <!-- 移除的使用规则 -->
+                    </div>
+
+                    <h4 class="text-sm font-bold text-textDark mb-2">收费标准</h4>
+                    <div class="text-sm text-textLight space-y-1">
+                        <div class="flex justify-between">
+                            <span>小时价格：</span>
+                            <span class="font-medium text-textDark">¥ 5.00/小时</span>
+                        </div>
+                        <div class="flex justify-between">
+                             <span>天价格：</span>
+                             <span class="font-medium text-textDark">¥ 30.00/天</span>
+                         </div>
+                         <div class="flex justify-between">
+                             <span>优惠价格：</span>
+                              <span class="font-medium text-primary">¥ 40/30天以上</span>
+                          </div>
+                          <!-- 如果没有优惠价格，可以隐藏此行 -->
+                          <!-- <div class="flex justify-between text-textLight">
+                              <span>优惠价格：</span>
+                               <span>暂无优惠</span>
+                           </div> -->
+                    </div>
+
+                    <!-- 可添加图片 -->
+                    <!-- <img src="https://picsum.photos/id/1025/400/300" alt="补充图片" class="mt-3 rounded-md"> -->
+
+                </div>
+            </div>
+
+            <!-- 固定底部操作栏 -->
+            <div class="bottom-bar flex justify-between items-center px-4">
+                <div class="flex items-center gap-6">
+                    <button onclick="window.location.href='index.html'" class="text-textDark hover:text-primary transition-colors flex flex-col items-center">
+                        <i class="fas fa-home text-xl"></i>
+                        <span class="text-xs text-textLight mt-1">首页</span>
+                    </button>
+                    <button onclick="handleFavorite(this)" class="text-textDark hover:text-primary transition-colors flex flex-col items-center">
+                        <i class="far fa-heart text-xl"></i>
+                        <span class="text-xs text-textLight mt-1">收藏</span>
+                    </button>
+                </div>
+                <button class="bg-primary text-white px-4 py-3 rounded-lg text-base font-medium flex-1 ml-2" onclick="alert('立即预定功能开发中')">
+                    立即预定
+                </button>
+                 <button class="bg-secondary text-white px-4 py-3 rounded-lg text-base font-medium flex-1 ml-2" onclick="alert('电话沟通功能开发中')">
+                      <i class="fas fa-phone-alt mr-2"></i>电话沟通
+                  </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 返回按钮
+        document.querySelector('.header-bar .fa-chevron-left').parentElement.addEventListener('click', function() {
+            window.history.back();
+        });
+
+        // Placeholder JS for bottom bar button clicks
+        document.querySelectorAll('.bottom-bar button').forEach(button => {
+            button.addEventListener('click', function() {
+                const action = this.textContent.trim();
+            });
+        });
+
+        // Optional: Add JS for image carousel if implementing a carousel
+
+        // 订阅按钮点击处理
+        function handleSubscribe(button) {
+            const isSubscribed = button.classList.contains('bg-gray-400');
+            if (isSubscribed) {
+                button.classList.remove('bg-gray-400');
+                button.classList.add('bg-secondary');
+                button.textContent = '订阅';
+                alert('已取消订阅');
+            } else {
+                button.classList.remove('bg-secondary');
+                button.classList.add('bg-gray-400');
+                button.textContent = '已订阅';
+                alert('订阅成功');
+            }
+        }
+
+        // 收藏按钮点击处理
+        function handleFavorite(button) {
+            const icon = button.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'text-primary');
+                alert('收藏成功');
+            } else {
+                icon.classList.remove('fas', 'text-primary');
+                icon.classList.add('far');
+                alert('已取消收藏');
+            }
+        }
+    </script>
+</body>
+</html> 

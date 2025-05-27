@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邻家慧享 - 订单提交成功</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="status-bar.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C00',
+                        secondary: '#4CAF50',
+                        background: '#F8F8F8',
+                        textDark: '#333333',
+                        textLight: '#666666'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F8F8;
+            touch-action: manipulation;
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            background-color: #F8F8F8;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+        .status-bar {
+            height: 44px;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 5;
+        }
+        .header-bar {
+            height: 50px;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .content-area {
+            height: calc(100% - 44px - 50px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 20px;
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            color: white;
+            font-size: 40px;
+        }
+        .countdown {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 14px;
+            color: #666;
+            margin-left: 5px;
+        }
+        .order-info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .order-info-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="time font-semibold">9:41</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- 头部标题栏 -->
+            <div class="header-bar">
+                <div class="w-5"></div> <!-- 占位元素 -->
+                <h1 class="text-lg font-medium text-textDark">订单提交成功</h1>
+                <div class="auto-close flex items-center" id="autoCloseContainer">
+                    <span class="text-xs text-gray-400">关闭</span>
+                    <span class="countdown" id="countdown">5</span>
+                </div>
+            </div>
+            
+            <!-- 内容区域 -->
+            <div class="content-area">
+                <!-- 成功提示 -->
+                <div class="success-container flex flex-col items-center py-10 bg-white">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-textDark mt-4">订单提交成功</h2>
+                    <p class="text-sm text-textLight mt-2">感谢您的购买，我们会尽快为您配送</p>
+                </div>
+                
+                <!-- 订单信息 -->
+                <div class="section-card mt-4 p-4">
+                    <h3 class="text-base font-medium mb-3">订单信息</h3>
+                    
+                    <div class="order-info-item">
+                        <span class="text-sm text-textLight">订单编号</span>
+                        <span class="text-sm text-textDark">202308150001</span>
+                    </div>
+                    
+                    <div class="order-info-item">
+                        <span class="text-sm text-textLight">下单时间</span>
+                        <span class="text-sm text-textDark">2023-08-15 10:30:25</span>
+                    </div>
+                    
+                    <div class="order-info-item">
+                        <span class="text-sm text-textLight">收货方式</span>
+                        <span class="text-sm text-textDark">社区自提</span>
+                    </div>
+                    
+                    <div class="order-info-item">
+                        <span class="text-sm text-textLight">预计送达</span>
+                        <span class="text-sm text-textDark">今日 18:00-20:00</span>
+                    </div>
+                </div>
+                
+                <!-- 配送信息 -->
+                <div class="section-card p-4">
+                    <h3 class="text-base font-medium mb-3">配送信息</h3>
+                    
+                    <div class="mb-3">
+                        <div class="flex items-center mb-1">
+                            <span class="font-medium text-textDark mr-3">张先生</span>
+                            <span class="text-textDark">138****6789</span>
+                        </div>
+                        <div class="text-sm text-textLight">
+                            北京市朝阳区阳光花园小区8号楼3单元502室
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 p-3 rounded-lg">
+                        <div class="flex items-start">
+                            <i class="fas fa-info-circle text-yellow-500 mt-1 mr-2"></i>
+                            <div>
+                                <p class="text-sm text-textDark">自提点：阳光花园小区北门社区服务站</p>
+                                <p class="text-xs text-textLight mt-1">请凭订单号或手机号到自提点取货</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 操作按钮 -->
+                <div class="action-buttons flex justify-between px-4 mt-6">
+                    <a href="index.html" class="flex-1 py-3 border border-primary text-primary rounded-full text-center text-sm font-medium mr-3">
+                        返回首页
+                    </a>
+                    <a href="#" class="flex-1 py-3 bg-primary text-white rounded-full text-center text-sm font-medium">
+                        查看订单
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 自动关闭倒计时
+        let countdownValue = 5;
+        const countdownElement = document.getElementById('countdown');
+        const autoCloseContainer = document.getElementById('autoCloseContainer');
+        
+        const countdownInterval = setInterval(() => {
+            countdownValue--;
+            countdownElement.textContent = countdownValue;
+            
+            if (countdownValue <= 0) {
+                clearInterval(countdownInterval);
+                // 倒计时结束后跳转到首页
+                window.location.href = 'index.html';
+            }
+        }, 1000);
+        
+        // 点击关闭按钮取消倒计时
+        autoCloseContainer.addEventListener('click', () => {
+            clearInterval(countdownInterval);
+            autoCloseContainer.style.display = 'none';
+        });
+
+        // 查看订单按钮点击事件
+        document.querySelector('.action-buttons a:last-child').addEventListener('click', function(e) {
+            e.preventDefault();
+            // 实际应用中这里应该跳转到订单详情页面
+            alert('跳转到订单详情页面');
+        });
+    </script>
+</body>
+</html> 

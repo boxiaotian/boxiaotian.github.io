@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
-  <path d="M13 10H47C49.2091 10 51 11.7909 51 14V46C51 48.2091 49.2091 50 47 50H13C10.7909 50 9 48.2091 9 46V14C9 11.7909 10.7909 10 13 10Z" stroke="#1A56DB" stroke-width="2.5"/>
-  <path d="M9 20H51" stroke="#1A56DB" stroke-width="2.5"/>
-  <path d="M9 30H51" stroke="#1A56DB" stroke-width="2.5"/>
-  <path d="M20 40H40" stroke="#1A56DB" stroke-width="2.5" stroke-linecap="round"/>
-  <rect x="15" y="24" width="6" height="2" rx="1" fill="#1A56DB"/>
-  <rect x="25" y="24" width="6" height="2" rx="1" fill="#1A56DB"/>
-  <rect x="35" y="24" width="10" height="2" rx="1" fill="#1A56DB"/>
-</svg> 

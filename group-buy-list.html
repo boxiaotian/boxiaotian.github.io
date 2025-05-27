@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=375, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>社区团购列表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C00',
+                        secondary: '#4CAF50',
+                        background: '#F8F8F8',
+                        textDark: '#333333',
+                        textLight: '#666666'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F8F8;
+            touch-action: manipulation;
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            background-color: white;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+        .status-bar {
+            height: 44px;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 5;
+        }
+        .content-area {
+            height: calc(100% - 44px - 83px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background: #F8F8F8;
+            padding-top: 76px;
+        }
+        .nav-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 83px;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 20%;
+        }
+        .nav-item.active {
+            color: #FF8C00;
+        }
+        .sticky-filter {
+            position: sticky;
+            top: 44px;
+            z-index: 20;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .filter-scroll {
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .filter-item {
+            display: inline-block;
+            margin-right: 12px;
+            padding: 6px 18px;
+            border-radius: 9999px;
+            font-size: 15px;
+            background: #F8F8F8;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-item.active, .filter-item.selected {
+            background: #FF8C00;
+            color: #fff;
+        }
+        .product-card {
+            transition: box-shadow 0.2s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 16px rgba(255,140,0,0.08);
+        }
+        .product-images {
+            display: flex;
+            width: 100%;
+            height: 140px;
+            overflow: hidden;
+        }
+        .product-images img {
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .progress-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: #F8F8F8;
+            overflow: hidden;
+        }
+        .progress-inner {
+            height: 100%;
+            background: linear-gradient(90deg, #FF8C00 60%, #4CAF50 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="time font-semibold">9:41</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            <!-- 顶部导航栏 -->
+            <div class="flex items-center px-4 py-3 bg-white sticky top-0 z-10 border-b border-gray-100">
+                <button onclick="window.history.back()" class="mr-3 text-xl text-textDark focus:outline-none">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="text-lg font-bold text-textDark flex-1">社区团购</span>
+            </div>
+            <!-- 搜索框 -->
+            <div class="sticky top-[44px] z-10 px-4 py-2 bg-white border-b border-gray-100">
+                <div class="search-box bg-gray-100 rounded-full flex items-center px-3 py-1.5 w-full">
+                    <i class="fas fa-search text-gray-400 mr-2 text-sm"></i>
+                    <input type="text" placeholder="搜索商品/服务" class="bg-transparent text-sm w-full outline-none">
+                </div>
+            </div>
+            <!-- 分类/筛选吸顶区 -->
+            <div class="sticky-filter px-4 py-2" style="top: 76px;">
+                <div class="filter-scroll">
+                    <span class="filter-item active" onclick="selectFilter(this)">全部</span>
+                    <span class="filter-item" onclick="selectFilter(this)">水果</span>
+                    <span class="filter-item" onclick="selectFilter(this)">蔬菜</span>
+                    <span class="filter-item" onclick="selectFilter(this)">粮油</span>
+                    <span class="filter-item" onclick="selectFilter(this)">日用</span>
+                    <span class="filter-item" onclick="selectFilter(this)">零食</span>
+                    <span class="filter-item" onclick="selectFilter(this)">饮品</span>
+                </div>
+            </div>
+            <!-- 商品列表 -->
+            <div class="content-area px-3 pt-2 pb-2 pb-20">
+                <div class="space-y-4">
+                    <!-- 商品卡片1 -->
+                    <div class="product-card bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer" onclick="window.location.href='group-buy-detail.html'">
+                        <div class="product-images">
+                            <img src="https://picsum.photos/id/101/180/140" alt="草莓" class="">
+                            <img src="https://picsum.photos/id/103/180/140" alt="草莓细节" class="">
+                        </div>
+                        <div class="p-3">
+                            <div class="text-base font-semibold text-textDark truncate">新鲜草莓 500g/盒</div>
+                            <div class="text-sm text-textLight mt-1">新鲜采摘，口感甜美</div>
+                            <div class="flex items-center mt-1 justify-between">
+                                <div class="flex items-center">
+                                    <span class="text-primary font-bold text-lg mr-2">¥29.9</span>
+                                    <span class="text-xs text-gray-400 line-through">¥39.9</span>
+                                </div>
+                                <button class="bg-primary text-white py-1.5 px-3 rounded-lg text-sm">去拼团</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 商品卡片2 -->
+                    <div class="product-card bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer" onclick="window.location.href='group-buy-detail.html'">
+                        <div class="product-images">
+                            <img src="https://picsum.photos/id/102/180/140" alt="有机蔬菜" class="">
+                            <img src="https://picsum.photos/id/106/180/140" alt="有机蔬菜细节" class="">
+                        </div>
+                        <div class="p-3">
+                            <div class="text-base font-semibold text-textDark truncate">有机蔬菜礼盒 3kg</div>
+                            <div class="text-sm text-textLight mt-1">无农药，健康生活</div>
+                            <div class="flex items-center mt-1 justify-between">
+                                <div class="flex items-center">
+                                    <span class="text-primary font-bold text-lg mr-2">¥59.9</span>
+                                    <span class="text-xs text-gray-400 line-through">¥79.9</span>
+                                </div>
+                                <button class="bg-primary text-white py-1.5 px-3 rounded-lg text-sm">去拼团</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 商品卡片3 -->
+                    <div class="product-card bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer" onclick="window.location.href='group-buy-detail.html'">
+                        <div class="product-images">
+                            <img src="https://picsum.photos/id/103/180/140" alt="大米" class="">
+                            <img src="https://picsum.photos/id/107/180/140" alt="大米细节" class="">
+                        </div>
+                        <div class="p-3">
+                            <div class="text-base font-semibold text-textDark truncate">优质东北大米 5kg</div>
+                            <div class="text-sm text-textLight mt-1">香糯可口，营养丰富</div>
+                            <div class="flex items-center mt-1 justify-between">
+                                <div class="flex items-center">
+                                    <span class="text-primary font-bold text-lg mr-2">¥49.9</span>
+                                    <span class="text-xs text-gray-400 line-through">¥69.9</span>
+                                </div>
+                                <button class="bg-primary text-white py-1.5 px-3 rounded-lg text-sm">去拼团</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 商品卡片4 -->
+                    <div class="product-card bg-white rounded-xl overflow-hidden shadow-sm cursor-pointer" onclick="window.location.href='group-buy-detail.html'">
+                        <div class="product-images">
+                            <img src="https://picsum.photos/id/104/180/140" alt="纸巾" class="">
+                            <img src="https://picsum.photos/id/108/180/140" alt="纸巾细节" class="">
+                        </div>
+                        <div class="p-3">
+                            <div class="text-base font-semibold text-textDark truncate">原生木浆抽纸 24包</div>
+                            <div class="text-sm text-textLight mt-1">柔软舒适，环保健康</div>
+                            <div class="flex items-center mt-1 justify-between">
+                                <div class="flex items-center">
+                                    <span class="text-primary font-bold text-lg mr-2">¥19.9</span>
+                                    <span class="text-xs text-gray-400 line-through">¥29.9</span>
+                                </div>
+                                <button class="bg-primary text-white py-1.5 px-3 rounded-lg text-sm">去拼团</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 分类/筛选切换
+        function selectFilter(el) {
+            document.querySelectorAll('.filter-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            el.classList.add('active');
+            // 这里可以添加筛选逻辑
+        }
+    </script>
+</body>
+</html> 

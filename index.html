@@ -3,450 +3,659 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>礼TA网 - 礼品企业数字化转型专家</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- 自定义CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <!-- Font Awesome 图标 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>邻家慧享 - 首页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="status-bar.css" rel="stylesheet">
+    <link href="nav-bar.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C00',
+                        secondary: '#4CAF50',
+                        background: '#F8F8F8',
+                        textDark: '#333333',
+                        textLight: '#666666'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F8F8;
+            touch-action: manipulation;
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            background-color: white;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+        .status-bar {
+            height: 44px;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 5;
+        }
+        .content-area {
+            height: calc(100% - 44px - 83px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nav-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 83px;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+        }
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+        .carousel-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        .carousel-indicator.active {
+            background-color: white;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 20%;
+        }
+        .nav-item.active {
+            color: #FF8C00;
+        }
+        .location-dropdown {
+            display: none;
+            position: absolute;
+            top: 44px;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 100;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .location-item {
+            padding: 12px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .location-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* 消息公告轮播样式 */
+        .announcement-carousel {
+            position: relative;
+            height: 32px;
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        
+        .announcement-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .announcement-item {
+            height: 32px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            box-sizing: border-box;
+        }
+        
+        .tag {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 500;
+            min-width: 36px;
+            text-align: center;
+        }
+        
+        /* 最新动态区域样式优化 */
+        .news-announcement {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+            padding: 8px 16px;
+        }
+        
+        .news-title {
+            position: relative;
+            color: #FF8C00;
+            font-weight: 600;
+            padding-bottom: 2px;
+            font-size: 16px;
+        }
+        
+        .news-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #FF8C00;
+            border-radius: 2px;
+        }
+        
+        .announcement-item {
+            position: relative;
+            padding-left: 16px;
+        }
+        
+        .announcement-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: #FF8C00;
+        }
+    </style>
 </head>
 <body>
-    <!-- 头部区域 -->
-    <header id="header"></header>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="time font-semibold">9:41</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- 内容区域 -->
+            <div class="content-area">
+                <!-- 顶部区域：产品名称和搜索 -->
+                <div class="flex items-center px-4 py-3 bg-white sticky top-0 z-10">
+                    <!-- 产品名称 -->
+                    <span class="text-lg font-bold text-textDark mr-3">邻家慧享</span>
 
-    <!-- 主要内容区域 -->
-    <main>
-        <!-- 英雄区域/Banner 轮播图 -->
-        <section class="hero-section">
-            <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                <!-- 轮播指示器 -->
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <div class="search-box bg-gray-100 rounded-full flex items-center px-3 py-1.5 flex-1 mx-3">
+                        <i class="fas fa-search text-gray-400 mr-2 text-sm"></i>
+                        <input type="text" placeholder="搜索商品/服务" class="bg-transparent text-sm w-full outline-none">
+                    </div>
+                    <a href="message.html" class="message-icon">
+                        <i class="fas fa-bell text-gray-500"></i>
+                    </a>
                 </div>
                 
-                <!-- 轮播项目 -->
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="hero-bg">
-                            <img src="images/hero-bg-1.jpg" alt="微礼网背景1" class="d-block w-100">
+                <!-- 轮播图 -->
+                <div class="carousel">
+                    <div class="carousel-inner" id="carouselInner">
+                        <div class="carousel-item">
+                            <img src="https://picsum.photos/id/1/375/180" alt="促销活动" class="w-full h-full object-cover">
                         </div>
-                        <div class="carousel-caption hero-content">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-10 text-center">
-                                        <h1>十大产品体系 引领礼品企业数字化升级</h1>
-                                        <h2>TEN PRODUCT SYSTEMS FOR DIGITAL TRANSFORMATION</h2>
+                        <div class="carousel-item">
+                            <img src="https://picsum.photos/id/2/375/180" alt="社区活动" class="w-full h-full object-cover">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://picsum.photos/id/3/375/180" alt="新品上市" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="carousel-indicators">
+                        <div class="carousel-indicator active"></div>
+                        <div class="carousel-indicator"></div>
+                        <div class="carousel-indicator"></div>
+                    </div>
+                </div>
+                
+                <!-- 用户信息和切换小区 -->
+                <div class="flex items-center justify-between px-4 py-3 mt-2 rounded-lg mx-4" style="background: linear-gradient(to right, #a7bfe8, #6190e8); color: white;">
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/id/1025/50/50" alt="用户头像" class="w-10 h-10 rounded-full border-2 border-white">
+                        <div class="ml-3">
+                            <div class="font-medium">小宝</div>
+                            <div class="text-sm opacity-90">明发悦江悦府</div>
+                        </div>
+                    </div>
+                    <button class="flex items-center px-3 py-1 bg-white bg-opacity-30 rounded-full text-white text-sm" onclick="showLocationModal()">
+                        <i class="fas fa-exchange-alt text-xs mr-1"></i>
+                        切换小区
+                    </button>
+                </div>
+                
+                
+                <!-- 最新动态 - 消息公告轮播 -->
+                <div class="news-announcement mt-2 mb-2">
+                    <div class="flex items-center">
+                        <h2 class="news-title mr-4 whitespace-nowrap">
+                            最新动态
+                        </h2>
+                        
+                        <!-- 消息轮播区域 -->
+                        <div class="announcement-carousel relative overflow-hidden flex-1 bg-white rounded-lg px-2">
+                            <div class="announcement-container" id="announcementContainer">
+                                <!-- 公告项 -->
+                                <div class="announcement-item flex items-center">
+                                    <div class="content flex-1">
+                                        <p class="text-sm text-textDark truncate">"邻家慧享"社区团购新玩法，期待您的光临~</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="announcement-item flex items-center">
+                                    <div class="content flex-1">
+                                        <p class="text-sm text-textDark truncate">本周六小区广场举办夏日纳凉晚会</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="announcement-item flex items-center">
+                                    <div class="content flex-1">
+                                        <p class="text-sm text-textDark truncate">新鲜水果团购活动开始啦，限时48小时</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="announcement-item flex items-center">
+                                    <div class="content flex-1">
+                                        <p class="text-sm text-textDark truncate">小区电梯维修通知，8月20日暂停使用</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="announcement-item flex items-center">
+                                    <div class="content flex-1">
+                                        <p class="text-sm text-textDark truncate">闲置物品交换活动，本周日上午10点开始</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="carousel-item">
-                        <div class="hero-bg">
-                            <img src="images/hero-bg-2.jpg" alt="微礼网背景2" class="d-block w-100">
+                </div>
+
+                <!-- 功能入口 -->
+                <div class="function-entries grid grid-cols-2 gap-3 px-4 py-5 bg-white mt-2">
+                    <!-- 左侧大卡片 - 邻家拼团 -->
+                    <a href="group-buy-list.html" class="function-item bg-green-100 rounded-xl p-5 flex flex-col justify-between h-full">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-lg font-bold">邻家拼团 →</h3>
+                                <p class="text-sm text-gray-600 mt-2">社区团购超划算</p>
+                            </div>
                         </div>
-                        <div class="carousel-caption hero-content">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-10 text-center">
-                                        <h1>科技赋能 重构礼品行业新生态</h1>
-                                        <h2>RESHAPING GIFT INDUSTRY WITH TECHNOLOGY</h2>
+                        <div class="flex justify-end mt-12">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png" alt="购物袋" class="w-16 h-16 opacity-80">
+                        </div>
+                    </a>
+                    
+                    <!-- 右侧两个小卡片 -->
+                    <div class="grid grid-rows-2 gap-3 h-full">
+                        <!-- 上方卡片 - 闲置转让 -->
+                        <a href="idle-list.html" class="function-item bg-amber-100 rounded-xl p-4 flex justify-between items-center">
+                            <div>
+                                <h3 class="text-base font-bold">闲置转让 →</h3>
+                                <p class="text-xs text-gray-600 mt-1">闲置好物转起来</p>
+                            </div>
+                            <div class="flex justify-center items-center">
+                                <img src="https://cdn-icons-png.flaticon.com/512/4213/4213958.png" alt="礼物盒" class="w-12 h-12 opacity-80">
+                            </div>
+                        </a>
+                        
+                        <!-- 下方卡片 - 车位共享 -->
+                        <a href="parking-share-list.html" class="function-item bg-blue-100 rounded-xl p-4 flex justify-between items-center">
+                            <div>
+                                <h3 class="text-base font-bold">车位共享 →</h3>
+                                <p class="text-xs text-gray-600 mt-1">车位共享更便捷</p>
+                            </div>
+                            <div class="flex justify-center items-center">
+                                <img src="https://cdn-icons-png.flaticon.com/512/3774/3774278.png" alt="停车位" class="w-12 h-12 opacity-80">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 热门团购 -->
+                <!-- <div class="hot-products mt-2 bg-white p-4">
+                    <div class="section-header flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold text-textDark">热门团购</h2>
+                        <a href="group-buy-list.html" class="text-sm text-primary">更多</a>
+                    </div>
+                    
+                    <div class="products-grid grid grid-cols-2 gap-3">
+                        <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm" onclick="window.location.href = 'group-buy-detail.html'">
+                            <img src="https://picsum.photos/id/292/180/180" alt="新鲜水果" class="w-full h-36 object-cover">
+                            <div class="p-2">
+                                <h4 class="text-sm font-medium text-textDark truncate">新鲜草莓 500g/盒</h4>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-primary font-bold">¥29.9</span>
+                                    <span class="text-xs text-gray-400">已售 128</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm" onclick="window.location.href = 'group-buy-detail.html'">
+                            <img src="https://picsum.photos/id/24/180/180" alt="有机蔬菜" class="w-full h-36 object-cover">
+                            <div class="p-2">
+                                <h4 class="text-sm font-medium text-textDark truncate">有机蔬菜礼盒 3kg</h4>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-primary font-bold">¥59.9</span>
+                                    <span class="text-xs text-gray-400">已售 86</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+                <!-- 最新闲置 -->
+                <!-- <div class="latest-idle mt-2 bg-white p-4">
+                    <div class="section-header flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold text-textDark">最新闲置</h2>
+                        <a href="idle-list.html" class="text-sm text-primary">更多</a>
+                    </div>
+                    
+                    <div class="idle-items grid grid-cols-2 gap-3">
+                        <div class="idle-card bg-white rounded-lg overflow-hidden shadow-sm">
+                            <img src="https://picsum.photos/id/96/180/180" alt="二手自行车" class="w-full h-36 object-cover">
+                            <div class="p-2">
+                                <h4 class="text-sm font-medium text-textDark truncate">九成新山地自行车</h4>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-primary font-bold">¥380</span>
+                                    <span class="text-xs text-gray-400">发布于 今天</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="idle-card bg-white rounded-lg overflow-hidden shadow-sm">
+                            <img src="https://picsum.photos/id/20/180/180" alt="书架" class="w-full h-36 object-cover">
+                            <div class="p-2">
+                                <h4 class="text-sm font-medium text-textDark truncate">实木书架 五层</h4>
+                                <div class="flex justify-between items-center mt-1">
+                                    <span class="text-primary font-bold">¥120</span>
+                                    <span class="text-xs text-gray-400">发布于 昨天</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                
+                <!-- 车位共享 -->
+                <!-- <div class="parking-share mt-2 bg-white p-4 mb-16">
+                    <div class="section-header flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold text-textDark">车位共享</h2>
+                        <a href="#" class="text-sm text-primary">更多</a>
+                    </div>
+                    
+                    <div class="parking-spaces">
+                        <div class="parking-card bg-white rounded-lg overflow-hidden shadow-sm p-3 mb-3 flex">
+                            <div class="parking-icon bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-car text-secondary text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-sm font-medium text-textDark">B区地下停车场 B2-108</h4>
+                                <div class="flex justify-between items-center mt-1">
+                                    <div>
+                                        <span class="text-primary font-bold">¥5/小时</span>
+                                        <span class="text-xs text-gray-400 ml-2">可用时段: 8:00-18:00</span>
                                     </div>
+                                    <button class="bg-secondary text-white text-xs px-2 py-1 rounded">预约</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="carousel-item">
-                        <div class="hero-bg">
-                            <img src="images/hero-bg-3.jpg" alt="微礼网背景3" class="d-block w-100">
-                        </div>
-                        <div class="carousel-caption hero-content">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-10 text-center">
-                                        <h1>企业礼品采购一站式智慧解决方案</h1>
-                                        <h2>INTEGRATED SMART SOLUTION FOR CORPORATE GIFTING</h2>
+                        <div class="parking-card bg-white rounded-lg overflow-hidden shadow-sm p-3 flex">
+                            <div class="parking-icon bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mr-3">
+                                <i class="fas fa-car text-secondary text-xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-sm font-medium text-textDark">A区地面停车场 A-56</h4>
+                                <div class="flex justify-between items-center mt-1">
+                                    <div>
+                                        <span class="text-primary font-bold">¥200/月</span>
+                                        <span class="text-xs text-gray-400 ml-2">长租优惠</span>
                                     </div>
+                                    <button class="bg-secondary text-white text-xs px-2 py-1 rounded">预约</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- 轮播控制按钮 -->
-                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">上一张</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">下一张</span>
-                </button>
+                </div> -->
             </div>
-        </section>
+            
+            <!-- 底部导航栏 -->
+            <div class="nav-bar">
+                <div class="nav-item active">
+                    <i class="fas fa-home text-xl mb-1"></i>
+                    <span class="text-xs">首页</span>
+                </div>
+                <a href="cart.html" class="nav-item text-textLight">
+                    <i class="fas fa-shopping-cart text-xl mb-1"></i>
+                    <span class="text-xs">购物车</span>
+                </a>
+                <a href="publish.html" class="nav-item text-textLight">
+                    <div class="bg-primary w-12 h-12 rounded-full flex items-center justify-center -mt-5">
+                        <i class="fas fa-plus text-white text-xl"></i>
+                    </div>
+                    <span class="text-xs mt-1">发布</span>
+                </a>
+                <a href="message.html" class="nav-item text-textLight">
+                    <i class="fas fa-comment-dots text-xl mb-1"></i>
+                    <span class="text-xs">消息</span>
+                </a>
+                <a href="my.html" class="nav-item text-textLight">
+                    <i class="fas fa-user text-xl mb-1"></i>
+                    <span class="text-xs">我的</span>
+                </a>
+            </div>
+        </div>
 
-        <!-- 持续创新的产品和服务 -->
-        <section class="innovation-section py-5">
-            <div class="container text-center">
-                <h2 class="section-title">持续创新的产品与服务体系</h2>
-                <p class="section-subtitle mb-5">全面整合礼品企业业务数字化管理，构建闭环联通的数字生态，引领行业变革</p>
-                
-                <div class="row mt-5">
-                    <!-- 礼品企业资源库 -->
-                    <div class="col-md-3 mb-4">
-                        <div class="service-card">
-                            <div class="service-card-inner">
-                                <h4>礼品企业资源库</h4>
-                                <p class="text-muted mt-3">专业整合礼品全产业链资源</p>
-                                <div class="card-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                            </div>
-                        </div>
+        <!-- 小区选择弹窗 -->
+        <div id="locationModal" class="absolute inset-0 bg-black bg-opacity-50 hidden z-50 flex items-end justify-center">
+            <div class="bg-white rounded-t-2xl w-full">
+                <div class="p-4">
+                    <!-- Header -->
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-textDark">选择小区</h3>
+                        <button onclick="closeLocationModal()" class="text-textLight">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
                     </div>
-                    
-                    <!-- 一对一运营服务 -->
-                    <div class="col-md-3 mb-4">
-                        <div class="service-card">
-                            <div class="service-card-inner">
-                                <h4>一对一专属服务</h4>
-                                <p class="text-muted mt-3">十余年行业经验铸就卓越品质</p>
-                                <div class="card-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 多部门协同服务 -->
-                    <div class="col-md-3 mb-4">
-                        <div class="service-card">
-                            <div class="service-card-inner">
-                                <h4>多部门协同服务</h4>
-                                <p class="text-muted mt-3">高效协作，无忧接单流程体系</p>
-                                <div class="card-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 不断升级迭代 -->
-                    <div class="col-md-3 mb-4">
-                        <div class="service-card">
-                            <div class="service-card-inner">
-                                <h4>持续升级迭代</h4>
-                                <p class="text-muted mt-3">礼TA网专注礼赠服务技术创新</p>
-                                <div class="card-arrow">
-                                    <i class="fas fa-arrow-right"></i>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Location List -->
+                    <div class="space-y-2">
+                        <div class="location-item-modal px-4 py-3 border-b last:border-b-0 text-textDark">阳光花园小区</div>
+                        <div class="location-item-modal px-4 py-3 border-b last:border-b-0 text-textDark">幸福家园小区</div>
+                        <div class="location-item-modal px-4 py-3 border-b last:border-b-0 text-textDark">绿地公园小区</div>
+                        <div class="location-item-modal px-4 py-3 border-b last:border-b-0 text-textDark">城市花园小区</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <!-- 集采系统功能 -->
-        <section class="features-section py-5">
-            <div class="container text-center">
-                <h2 class="section-title">集采系统核心功能</h2>
-                <p class="section-subtitle mb-5">智能高效的礼品采购一体化解决方案，让企业礼品管理更简单</p>
+    <script>
+        // 轮播图功能
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        const carouselInner = document.getElementById('carouselInner');
+        
+        function showSlide(index) {
+            if (index >= slides.length) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = slides.length - 1;
+            } else {
+                currentSlide = index;
+            }
+            
+            carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // 更新指示器
+            indicators.forEach((indicator, i) => {
+                if (i === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+        
+        // 自动轮播
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 3000);
+        
+        // 手动切换轮播图
+        let startX, moveX;
+        carouselInner.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+        
+        carouselInner.addEventListener('touchmove', (e) => {
+            moveX = e.touches[0].clientX;
+        });
+        
+        carouselInner.addEventListener('touchend', () => {
+            if (startX - moveX > 50) {
+                showSlide(currentSlide + 1);
+            } else if (moveX - startX > 50) {
+                showSlide(currentSlide - 1);
+            }
+        });
+        
+        // 小区选择功能
+        
+        // 导航项点击效果
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(i => {
+                    i.classList.remove('active');
+                    i.classList.add('text-textLight');
+                });
+                item.classList.add('active');
+                item.classList.remove('text-textLight');
+            });
+        });
+        
+        // 消息公告轮播功能
+        const announcementContainer = document.getElementById('announcementContainer');
+        const announcementItems = document.querySelectorAll('.announcement-item');
+        let currentAnnouncementIndex = 0;
+        const itemHeight = 32; // 更新为与CSS中的announcement-item高度一致
+        
+        function showNextAnnouncement() {
+            currentAnnouncementIndex++;
+            if (currentAnnouncementIndex >= announcementItems.length) {
+                // 当到达最后一条时，快速回到第一条（无动画）
+                currentAnnouncementIndex = 0;
+                announcementContainer.style.transition = 'none';
+                announcementContainer.style.transform = `translateY(0)`;
                 
-                <div class="row">
-                    <!-- 供应商分类 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon mb-3">
-                                <img src="images/icons/supplier-icon.svg" alt="供应商分类" class="feature-icon-img">
-                            </div>
-                            <h4>智能供应商分类</h4>
-                            <p>多维度精准分类，一键直达心仪商品</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 集中采购 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon mb-3">
-                                <img src="images/icons/purchase-icon.svg" alt="集中采购" class="feature-icon-img">
-                            </div>
-                            <h4>一体化集中采购</h4>
-                            <p>跨区域资源整合，规模效应降低成本</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 快捷物流管理 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon mb-3">
-                                <img src="images/icons/logistics-icon.svg" alt="快捷物流管理" class="feature-icon-img">
-                            </div>
-                            <h4>智慧物流管理</h4>
-                            <p>全链路物流追踪，支持定制配送方案</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 支付系统 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon mb-3">
-                                <img src="images/icons/payment-icon.svg" alt="支付系统" class="feature-icon-img">
-                            </div>
-                            <h4>多元化支付系统</h4>
-                            <p>灵活支付选择，安全交易保障体系</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 服务平台 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon mb-3">
-                                <img src="images/icons/service-icon.svg" alt="服务平台" class="feature-icon-img">
-                            </div>
-                            <h4>综合服务平台</h4>
-                            <p>全周期产品管控，个性化定制服务</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 数据分析 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="feature-item p-4">
-                            <div class="feature-icon mb-3">
-                                <img src="images/icons/analytics-icon.svg" alt="数据分析" class="feature-icon-img">
-                            </div>
-                            <h4>智能数据分析</h4>
-                            <p>多维度数据洞察，精准支持决策优化</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                // 重新启用动画
+                setTimeout(() => {
+                    announcementContainer.style.transition = 'transform 0.5s ease';
+                }, 50);
+            } else {
+                // 正常滚动到下一条
+                announcementContainer.style.transform = `translateY(-${currentAnnouncementIndex * itemHeight}px)`;
+            }
+        }
+        
+        // 设置初始样式
+        announcementContainer.style.transition = 'transform 0.5s ease';
+        
+        // 自动轮播公告
+        setInterval(showNextAnnouncement, 3000);
 
-        <!-- 服务项目 -->
-        <section class="services-section py-5 bg-primary text-white">
-            <div class="container text-center">
-                <h2 class="section-title">核心服务项目</h2>
-                <p class="section-subtitle mb-5">定制化全流程解决方案，满足多元需求，让企业礼品管理焕然一新</p>
-                
-                <div class="row">
-                    <!-- 集采系统 -->
-                    <div class="col-md-3 mb-4">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-3">
-                                <i class="fas fa-network-wired"></i>
-                            </div>
-                            <h4>智慧集采系统</h4>
-                            <p>全国供应链资源整合，打造高效采购平台，优化流程，显著降低成本</p>
-                        </div>
-                    </div>
-                    
-                    <!-- B2B平台 -->
-                    <div class="col-md-3 mb-4">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-3">
-                                <i class="fas fa-handshake"></i>
-                            </div>
-                            <h4>智能B2B平台</h4>
-                            <p>构建供需双方无缝连接，助力B2B生态实现数字化转型升级</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 礼品系统 -->
-                    <div class="col-md-3 mb-4">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-3">
-                                <i class="fas fa-gift"></i>
-                            </div>
-                            <h4>创新礼品系统</h4>
-                            <p>精选礼品资源库，覆盖各类场景需求，高效便捷的兑换体验</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 客户定制 -->
-                    <div class="col-md-3 mb-4">
-                        <div class="service-item p-4">
-                            <div class="service-icon mb-3">
-                                <i class="fas fa-cogs"></i>
-                            </div>
-                            <h4>精准客户定制</h4>
-                            <p>深度洞察企业需求，提供从界面到功能的全方位定制化解决方案</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        // 小区选择弹窗功能
+        function showLocationModal() {
+            document.getElementById('locationModal').classList.remove('hidden');
+        }
 
-        <!-- 我们的优势 -->
-        <section class="advantages-section py-5 bg-light">
-            <div class="container text-center">
-                <h2 class="section-title">核心竞争优势</h2>
-                <p class="section-subtitle mb-5">融合前沿技术与专业服务经验</p>
-                
-                <div class="row mt-5">
-                    <!-- 服务优势 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="advantage-item p-4">
-                            <div class="advantage-icon mb-3">
-                                <img src="images/icons/service-icon.svg" alt="服务优势" class="advantage-icon-img">
-                            </div>
-                            <h4>专业服务优势</h4>
-                            <p>需求分析到实施运维，全流程专业支持与保障</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 团队优势 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="advantage-item p-4">
-                            <div class="advantage-icon mb-3">
-                                <img src="images/icons/supplier-icon.svg" alt="团队优势" class="advantage-icon-img">
-                            </div>
-                            <h4>精英团队优势</h4>
-                            <p>资深技术专家全天候服务，确保系统稳定运行</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 技术优势 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="advantage-item p-4">
-                            <div class="advantage-icon mb-3">
-                                <img src="images/icons/analytics-icon.svg" alt="技术优势" class="advantage-icon-img">
-                            </div>
-                            <h4>领先技术优势</h4>
-                            <p>采用云原生架构，保障系统高并发与稳定性</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 物流优势 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="advantage-item p-4">
-                            <div class="advantage-icon mb-3">
-                                <img src="images/icons/logistics-icon.svg" alt="物流优势" class="advantage-icon-img">
-                            </div>
-                            <h4>高效物流优势</h4>
-                            <p>智能调度配送网络，确保按时高效送达</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 成本优势 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="advantage-item p-4">
-                            <div class="advantage-icon mb-3">
-                                <img src="images/icons/purchase-icon.svg" alt="成本优势" class="advantage-icon-img">
-                            </div>
-                            <h4>显著成本优势</h4>
-                            <p>规模化采购与资源整合，为企业创造实质价值</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 品质优势 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="advantage-item p-4">
-                            <div class="advantage-icon mb-3">
-                                <img src="images/icons/payment-icon.svg" alt="品质优势" class="advantage-icon-img">
-                            </div>
-                            <h4>卓越品质优势</h4>
-                            <p>全链路品控体系，确保每件礼品品质如一</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        function closeLocationModal() {
+            document.getElementById('locationModal').classList.add('hidden');
+        }
 
-        <!-- 合作伙伴 -->
-        <section class="partners-section py-5 bg-light">
-            <div class="container text-center">
-                <h2 class="section-title">战略合作伙伴</h2>
-                <p class="section-subtitle mb-5">携手行业领军企业，共创美好未来</p>
-                
-                <div class="row justify-content-center">
-                    <!-- 第一行合作伙伴图片 -->
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/bank-of-china.svg" alt="中国银行" class="img-fluid partner-logo"></div>
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/Huawei.svg" alt="华为" class="img-fluid partner-logo"></div>
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/apple.svg" alt="苹果" class="img-fluid partner-logo"></div>
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/xiaomi.svg" alt="小米" class="img-fluid partner-logo"></div>
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/moto.png" alt="moto" class="img-fluid partner-logo"></div>
-                </div>
-                <div class="row justify-content-center mt-4">
-                    <!-- 第二行合作伙伴图片 -->                    
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/unicom.png" alt="中国联通" class="img-fluid partner-logo"></div>
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/baidu.svg" alt="百度" class="img-fluid partner-logo"></div>
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/lenovo.svg" alt="联想" class="img-fluid partner-logo"></div>
+        // 点击模态框外部关闭 (for location modal)
+        const locationModal = document.getElementById('locationModal');
+        locationModal.addEventListener('click', function(e) {
+            if (e.target === locationModal) {
+                closeLocationModal();
+            }
+        });
 
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/china-mobile.svg" alt="中国移动" class="img-fluid partner-logo"></div>
-                    <div class="col-6 col-sm-4 col-md-2"><img src="images/partners/alibaba.svg" alt="阿里巴巴(2)" class="img-fluid partner-logo"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 联系我们/跟踪墙 -->
-        <section class="contact-section py-5">
-            <div class="container text-center">
-                <h2 class="section-title">客户见证</h2>
-                <p class="section-subtitle mb-5">聆听我们客户的真实体验与反馈</p>
-                
-                <div class="testimonials-container">
-                    <div class="testimonials-slider">
-                        <!-- 用户反馈/动态 -->
-                        <div class="testimonial-item p-4 mx-2">
-                            <div class="user-avatar mb-3">
-                                <img src="images/user1.jpg" alt="用户头像" class="rounded-circle" width="60">
-                            </div>
-                            <h5>上海市某集团公司</h5>
-                            <p class="text-muted"><small>2023年3月25日</small></p>
-                            <p>礼TA网的高效集采系统彻底解决了我们长期以来的礼品管理痛点。平台操作直观友好，供应商资源丰富多样，物流配送精准及时，是我们礼品采购的得力助手！</p>
-                        </div>
-                        
-                        <div class="testimonial-item p-4 mx-2">
-                            <div class="user-avatar mb-3">
-                                <img src="images/user2.jpg" alt="用户头像" class="rounded-circle" width="60">
-                            </div>
-                            <h5>北京某大型互联网公司</h5>
-                            <p class="text-muted"><small>2023年2月15日</small></p>
-                            <p>定制的员工福利平台上线以来，获得了全公司的一致赞誉。系统界面美观易用，礼品选择丰富多元，配送速度超出预期，显著提升了员工满意度和归属感！</p>
-                        </div>
-                        
-                        <div class="testimonial-item p-4 mx-2">
-                            <div class="user-avatar mb-3">
-                                <img src="images/user1.jpg" alt="用户头像" class="rounded-circle" width="60">
-                            </div>
-                            <h5>广州某科技创新企业</h5>
-                            <p class="text-muted"><small>2023年4月10日</small></p>
-                            <p>选择礼TA网是我们的明智之举。他们提供的一站式管理平台功能完善强大，大幅节省了我们的时间和人力成本。礼品品质精良，选择多样，让每一次企业礼赠都成为亮点。</p>
-                        </div>
-                        
-                        <div class="testimonial-item p-4 mx-2">
-                            <div class="user-avatar mb-3">
-                                <img src="images/user2.jpg" alt="用户头像" class="rounded-circle" width="60">
-                            </div>
-                            <h5>深圳某电子科技公司</h5>
-                            <p class="text-muted"><small>2023年5月20日</small></p>
-                            <p>礼TA网的智能集采平台完美解决了我们多地办公室礼品配送的难题。系统支持精准跟踪每个订单，满足各类个性化定制需求，服务团队专业高效，值得长期信赖的合作伙伴。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="slider-controls mt-4">
-                        <button class="btn btn-primary slider-prev me-2"><i class="fas fa-chevron-left"></i></button>
-                        <button class="btn btn-primary slider-next"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- 页脚区域 -->
-    <footer id="footer"></footer>
-
-    <!-- Bootstrap 5 JS 和 Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- 自定义JS -->
-    <script src="js/main.js"></script>
+        // 点击小区选项关闭弹窗
+        const locationItemsModal = document.querySelectorAll('.location-item-modal');
+        locationItemsModal.forEach(item => {
+            item.addEventListener('click', function() {
+                // 这里可以添加选择小区的逻辑
+                console.log('选择了小区:', this.textContent);
+                closeLocationModal(); // 关闭弹窗
+            });
+        });
+    </script>
 </body>
-</html> 
+</html>

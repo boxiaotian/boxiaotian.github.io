@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>邻家慧享 - 闲置物品详情</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C00',
+                        secondary: '#4CAF50',
+                        background: '#F8F8F8',
+                        textDark: '#333333',
+                        textLight: '#666666'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F8F8;
+            touch-action: manipulation; /* 防止默认触摸行为，如双击放大 */
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px; /* 标准 iPhone 高度 */
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden; /* 关键：用于包含屏幕内容 */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px; /* 与容器圆角匹配 */
+            overflow: hidden; /* 确保内容保持在屏幕边界内 */
+            background-color: #F8F8F8; /* 在这里使用背景色 */
+            display: flex; /* 使用 flex 管理头部、内容和底部 */
+            flex-direction: column;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 20; /* 更高的 z-index */
+        }
+        .status-bar {
+            height: 44px; /* 标准状态栏高度 */
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 15; /* Below notch */
+            position: sticky;
+            top: 0;
+            flex-shrink: 0; /* 防止在 flex 列中缩小 */
+        }
+        .header-bar {
+            height: 50px; /* 大约高度 */
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 44px; /* 在状态栏下方 */
+            z-index: 10;
+            flex-shrink: 0; /* 防止缩小 */
+        }
+        .content-area {
+             flex-grow: 1; /* 允许内容占据剩余空间 */
+             overflow-y: auto; /* 启用滚动 */
+             -webkit-overflow-scrolling: touch;
+             background: #F8F8F8;
+             /* HTML 中添加了 padding 以简化，但也可以在这里添加 */
+             /* padding-top: calc(44px + 50px); */ /* 粘性头部的顶部 padding */
+             /* padding-bottom: 70px; */ /* 固定底部的底部 padding */
+        }
+        .bottom-bar {
+            height: 70px; /* 底部栏固定高度 */
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center; /* 水平居中内容 */
+            align-items: center;
+            padding: 0 16px;
+            border-top: 1px solid #f0f0f0;
+            flex-shrink: 0; /* 防止缩小 */
+            position: absolute; /* 相对于 phone-screen 的绝对定位 */
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .section-card {
+             background-color: white;
+             border-radius: 8px;
+             margin: 10px 16px; /* 水平外边距，垂直外边距 */
+             padding: 16px;
+             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .publisher-info {
+             display: flex;
+             align-items: center;
+             margin-bottom: 12px;
+        }
+        .publisher-avatar {
+             width: 40px;
+             height: 40px;
+             border-radius: 9999px;
+             object-fit: cover;
+             margin-right: 10px;
+        }
+        .description-content img {
+            max-width: 100%; /* 使描述中的图片响应式 */
+            height: auto;
+            display: block; /* 防止图片下方多余空间 */
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+        .image-carousel-container {
+             position: relative;
+             width: 100%;
+             aspect-ratio: 1 / 1; /* 使用 aspect-ratio 强制正方形 (1:1 比例) */
+             overflow: hidden;
+        }
+
+        .image-carousel {
+             width: 100%;
+             height: 100%; /* 占据容器全部高度 */
+             overflow-x: auto; /* 启用水平滚动 */
+             -webkit-overflow-scrolling: touch;
+             display: flex;
+             snap-type: x mandatory; /* 启用吸附 */
+             scrollbar-width: none; /* Firefox 隐藏滚动条 */
+             -ms-overflow-style: none;  /* IE 和 Edge 隐藏滚动条 */
+        }
+
+        .image-carousel::-webkit-scrollbar {
+             display: none; /* Chrome, Safari 和 Opera 隐藏滚动条 */
+        }
+
+        .carousel-item {
+            flex-shrink: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            snap-align: start; /* 吸附到起始位置 */
+        }
+
+        .carousel-page-indicator {
+             position: absolute;
+             bottom: 20px;
+             right: 20px;
+             background-color: rgba(0, 0, 0, 0.6);
+             color: white;
+             font-size: 12px;
+             padding: 4px 10px;
+             border-radius: 15px;
+             z-index: 5;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="time font-semibold">9:41</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- 头部标题栏 -->
+            <div class="header-bar">
+                <button onclick="window.history.back()" class="mr-3 text-xl text-textDark focus:outline-none">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h1 class="text-lg font-bold text-textDark flex-1 text-center">物品详情</h1>
+                <div class="w-6"></div> <!-- 标题居中的占位符 -->
+            </div>
+            
+            <!-- 内容区域 (滚动部分) -->
+            <div class="content-area pb-[70px]"> <!-- Add padding for sticky header and fixed footer -->
+
+
+                <!-- 图片轮播区域 -->
+                <div class="image-carousel-container mb-2">
+                  <div class="image-carousel">
+                      <img src="https://picsum.photos/id/1015/375/375" alt="物品图片 1" class="carousel-item">
+                      <img src="https://picsum.photos/id/1016/375/375" alt="物品图片 2" class="carousel-item">
+                      <img src="https://picsum.photos/id/1018/375/375" alt="物品图片 3" class="carousel-item">
+                  </div>
+                  <!-- 轮播图页码指示器 -->
+                  <div class="carousel-page-indicator">1/3</div>
+             </div>
+             
+                <!-- 物品核心信息区 -->
+                <div class="section-card mt-0 mb-2">
+                    <h2 class="text-xl font-bold text-textDark mb-2">几乎全新！舒适懒人沙发，米白色</h2>
+                    <div class="flex items-baseline mb-3">
+                        <span class="text-primary font-bold text-2xl mr-2">¥ 150</span>
+                    </div>
+                    <div class="text-sm text-textLight">
+                        新旧程度：九成新
+                    </div>
+                    <div class="text-sm text-textLight mt-2">
+                        所在小区：阳光花园小区
+                    </div>
+                    <div class="text-sm text-textLight mt-1">
+                        发布时间：1小时前
+                    </div>
+                </div>
+                
+                <!-- 发布者信息区 -->
+                 <div class="section-card mb-2 flex items-center">
+                     <div class="publisher-info flex-1 flex items-center">
+                         <img src="https://picsum.photos/id/1005/40/40" alt="发布者头像" class="publisher-avatar">
+                         <div>
+                             <div class="font-medium text-textDark">社区小莉</div>
+                             <div class="text-xs text-textLight">粉丝 128</div>
+                         </div>
+                     </div>
+                     <!-- 聊天/订阅按钮占位符 -->
+                     <button class="bg-primary text-white text-sm px-4 py-1.5 rounded-full" onclick="alert('订阅功能开发中')">
+                         <i class="fas fa-rss mr-1 text-xs"></i>订阅
+                     </button>
+                 </div>
+
+                <!-- 物品详细描述区 -->
+                <div class="section-card mb-2">
+                    <h3 class="text-base font-bold text-textDark mb-2">物品描述</h3>
+                    <div class="text-sm text-textLight description-content">
+                        <p>这个懒人沙发非常舒服，买回来没坐几次，因为家里空间小所以打算转让。米白色很百搭，面料也很舒服。</p>
+                        <p>坐标：阳光花园小区，欢迎上门查看。</p>
+                        <img src="https://picsum.photos/id/1019/400/300" alt="描述图片 1">
+                        <p>沙发细节图。</p>
+                        <img src="https://picsum.photos/id/1020/400/300" alt="描述图片 2">
+                    </div>
+                </div>
+
+                <!-- 交易/配送方式区 -->
+                <div class="section-card mb-2">
+                    <h3 class="text-base font-bold text-textDark mb-2">交易方式</h3>
+                    <div class="text-sm text-textLight">
+                        支持社区自提：阳光花园小区北门社区服务站
+                    </div>
+                    <div class="text-sm text-textLight mt-1">
+                         也可协商送货上门（同小区或附近小区）
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- 固定底部操作栏 -->
+            <div class="bottom-bar flex justify-between items-center px-4">
+                 <div class="flex items-center space-x-6">
+                     <a href="index.html" class="flex flex-col items-center text-textLight text-xs">
+                         <i class="fas fa-home text-lg"></i>
+                         <span>首页</span>
+                     </a>
+                     <button class="flex flex-col items-center text-textLight text-xs" onclick="alert('收藏功能开发中')">
+                          <i class="fas fa-heart text-lg"></i>
+                         <span>收藏</span>
+                     </button>
+                 </div>
+                 <button class="bg-primary text-white px-8 py-3 rounded-full text-base font-medium" onclick="alert('立即购买功能开发中')">
+                     立即购买
+                 </button>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // 图片轮播页码指示器 JS
+        const carousel = document.querySelector('.image-carousel');
+        const indicator = document.querySelector('.carousel-page-indicator');
+        const items = carousel.querySelectorAll('.carousel-item');
+        const totalItems = items.length;
+
+        if (totalItems > 0) {
+            indicator.textContent = `1/${totalItems}`;
+
+            carousel.addEventListener('scroll', () => {
+                const scrollLeft = carousel.scrollLeft;
+                const itemWidth = carousel.offsetWidth;
+                // 计算当前索引，考虑可能的部分滚动
+                const currentIndex = Math.round(scrollLeft / itemWidth);
+                // 确保索引在有效范围内
+                const clampedIndex = Math.max(0, Math.min(currentIndex, totalItems - 1));
+                indicator.textContent = `${clampedIndex + 1}/${totalItems}`;
+            });
+        } else {
+             indicator.style.display = 'none'; // 如果没有图片则隐藏指示器
+        }
+
+        // 交互元素占位符 JS
+        document.querySelectorAll('[onclick]').forEach(element => {
+            const originalOnClick = element.getAttribute('onclick');
+            if (originalOnClick && !originalOnClick.includes('alert')) {
+                 // 保留现有的非 alert onclick 或以后添加更复杂的逻辑
+            } else if (element.tagName === 'BUTTON' || element.tagName === 'A') {
+                // 如果需要，为其他交互元素添加默认行为或占位符
+                // 示例: element.addEventListener('click', () => alert('功能待实现'));
+            }
+        });
+
+        // 选项卡切换和滚动逻辑 (保留之前的实现)
+        document.querySelectorAll('.sticky-nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.sticky-nav-tab').forEach(t => {
+                    t.classList.remove('border-primary', 'border-b-2');
+                    t.classList.add('border-transparent');
+                });
+                this.classList.add('border-primary', 'border-b-2');
+                this.classList.remove('border-transparent');
+
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                const contentArea = document.querySelector('.content-area');
+                const headerOffset = 94; // Height of status bar + header bar
+
+                if (targetElement && contentArea) {
+                    // 计算相对于内容区域可滚动顶部的定位
+                    // targetElement 的 offsetTop 是相对于其父元素 (.content-area) 的
+                    // 滚动时为粘性头部进行调整
+                    const targetPosition = targetElement.offsetTop - headerOffset;
+                    contentArea.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth' // 可选: 平滑滚动
+                    });
+                 }
+            });
+        });
+
+        // 粘性导航激活的 Intersection Observer (保留之前的实现)
+        const observerOptions = {
+            root: document.querySelector('.content-area'), // 在可滚动内容区域内观察
+            rootMargin: '-94px 0px -50% 0px', // 根据头部高度和期望的激活点调整此外边距
+            threshold: 0 // 当目标顶部以给定外边距进入根 (contentArea) 时触发
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                const targetId = entry.target.id;
+                const correspondingTab = document.querySelector(`.sticky-nav-tab[data-target="${targetId}"]`);
+
+                if (entry.isIntersecting) {
+                    // 为相应的选项卡添加 active 类
+                     document.querySelectorAll('.sticky-nav-tab').forEach(t => {
+                         t.classList.remove('border-primary', 'border-b-2');
+                         t.classList.add('border-transparent');
+                     });
+                     if (correspondingTab) {
+                        correspondingTab.classList.add('border-primary', 'border-b-2');
+                        correspondingTab.classList.remove('border-transparent');
+                     }
+                } else {
+                    // 如果需要，移除 active 类，或根据滚动方向处理
+                    // 为了简单起见，我们将让相交的那个设置 active 类
+                }
+            });
+        }, observerOptions);
+
+        // 目标元素是对应粘性导航选项卡的部分
+        document.querySelectorAll('#item-info, #item-comments, #item-detail, #item-transaction').forEach(section => {
+            if (section) {
+                 observer.observe(section);
+            }
+        });
+
+    </script>
+</body>
+</html> 

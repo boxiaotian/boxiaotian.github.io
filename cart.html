@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邻家慧享 - 购物车</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="status-bar.css" rel="stylesheet">
+    <link href="nav-bar.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C00',
+                        secondary: '#4CAF50',
+                        background: '#F8F8F8',
+                        textDark: '#333333',
+                        textLight: '#666666'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F8F8;
+            touch-action: manipulation;
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            overflow: hidden;
+            background-color: white;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 10;
+        }
+        .status-bar {
+            height: 44px;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 5;
+        }
+        .header-bar {
+            height: 50px;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .content-area {
+            height: calc(100% - 44px - 83px - 50px);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .checkout-bar {
+            position: absolute;
+            bottom: 83px;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-top: 1px solid #f0f0f0;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .quantity-btn {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f8f8;
+            user-select: none;
+        }
+        .quantity-input {
+            width: 40px;
+            height: 28px;
+            text-align: center;
+            border: none;
+            border-left: 1px solid #eee;
+            border-right: 1px solid #eee;
+            outline: none;
+        }
+        .empty-cart {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="time font-semibold">9:41</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- 头部标题栏 -->
+            <div class="header-bar">
+                <a href="index.html" class="back-button">
+                    <i class="fas fa-chevron-left text-textDark"></i>
+                </a>
+                <h1 class="text-lg font-medium text-textDark">购物车</h1>
+                <div class="edit-button text-primary text-sm" id="editButton">编辑</div>
+            </div>
+            
+            <!-- 内容区域 -->
+            <div class="content-area" id="cartContent">
+                <!-- 购物车有商品时显示 -->
+                <div class="cart-items bg-white mt-2 mb-16" id="cartItems">
+                    <!-- 商品项 -->
+                    <div class="cart-item flex p-3 border-b border-gray-100">
+                        <input type="checkbox" class="item-checkbox w-5 h-5 mr-2 accent-primary self-center">
+                        <div class="item-image w-20 h-20 bg-gray-100 rounded-lg overflow-hidden">
+                            <img src="https://picsum.photos/id/292/180/180" alt="新鲜草莓" class="w-full h-full object-cover">
+                        </div>
+                        <div class="item-details flex-1 ml-3 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-sm font-medium text-textDark">新鲜草莓 500g/盒</h3>
+                                <p class="text-xs text-gray-400 mt-1">规格：特级果</p>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-bold">¥29.9</span>
+                                <div class="quantity-control">
+                                    <div class="quantity-btn minus">-</div>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <div class="quantity-btn plus">+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-item flex p-3 border-b border-gray-100">
+                        <input type="checkbox" class="item-checkbox w-5 h-5 mr-2 accent-primary self-center">
+                        <div class="item-image w-20 h-20 bg-gray-100 rounded-lg overflow-hidden">
+                            <img src="https://picsum.photos/id/24/180/180" alt="有机蔬菜" class="w-full h-full object-cover">
+                        </div>
+                        <div class="item-details flex-1 ml-3 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-sm font-medium text-textDark">有机蔬菜礼盒 3kg</h3>
+                                <p class="text-xs text-gray-400 mt-1">规格：标准装</p>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-bold">¥59.9</span>
+                                <div class="quantity-control">
+                                    <div class="quantity-btn minus">-</div>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <div class="quantity-btn plus">+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-item flex p-3">
+                        <input type="checkbox" class="item-checkbox w-5 h-5 mr-2 accent-primary self-center">
+                        <div class="item-image w-20 h-20 bg-gray-100 rounded-lg overflow-hidden">
+                            <img src="https://picsum.photos/id/139/180/180" alt="鸡蛋" class="w-full h-full object-cover">
+                        </div>
+                        <div class="item-details flex-1 ml-3 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-sm font-medium text-textDark">农家散养土鸡蛋 30枚</h3>
+                                <p class="text-xs text-gray-400 mt-1">规格：礼盒装</p>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-bold">¥49.9</span>
+                                <div class="quantity-control">
+                                    <div class="quantity-btn minus">-</div>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <div class="quantity-btn plus">+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 购物车为空时显示 -->
+                <div class="empty-cart hidden" id="emptyCart">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3081/3081840.png" alt="空购物车" class="w-32 h-32 opacity-50 mb-4">
+                    <p class="text-textLight text-base mb-6">购物车还是空的</p>
+                    <a href="index.html" class="bg-primary text-white px-6 py-2 rounded-full text-sm">去逛逛</a>
+                </div>
+            </div>
+            
+            <!-- 结算栏 -->
+            <div class="checkout-bar">
+                <div class="select-all flex items-center">
+                    <input type="checkbox" id="selectAll" class="w-5 h-5 mr-2 accent-primary">
+                    <label for="selectAll" class="text-sm">全选</label>
+                </div>
+                <div class="checkout-info flex items-center">
+                    <div class="price-info mr-3">
+                        <span class="text-sm">合计：</span>
+                        <span class="text-primary font-bold">¥139.7</span>
+                    </div>
+                    <button class="checkout-btn bg-primary text-white px-6 py-2 rounded-full text-sm" id="checkoutBtn">
+                        结算(3)
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 底部导航栏 -->
+            <div class="nav-bar">
+                <a href="index.html" class="nav-item text-textLight">
+                    <i class="fas fa-home text-xl mb-1"></i>
+                    <span class="text-xs">首页</span>
+                </a>
+                <div class="nav-item active">
+                    <i class="fas fa-shopping-cart text-xl mb-1"></i>
+                    <span class="text-xs">购物车</span>
+                </div>
+                <a href="publish.html" class="nav-item text-textLight">
+                    <div class="bg-primary w-12 h-12 rounded-full flex items-center justify-center -mt-5">
+                        <i class="fas fa-plus text-white text-xl"></i>
+                    </div>
+                    <span class="text-xs mt-1">发布</span>
+                </a>
+                <a href="message.html" class="nav-item text-textLight">
+                    <i class="fas fa-comment-dots text-xl mb-1"></i>
+                    <span class="text-xs">消息</span>
+                </a>
+                <a href="my.html" class="nav-item text-textLight">
+                    <i class="fas fa-user text-xl mb-1"></i>
+                    <span class="text-xs">我的</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 编辑按钮功能
+        const editButton = document.getElementById('editButton');
+        let isEditing = false;
+        
+        editButton.addEventListener('click', function() {
+            isEditing = !isEditing;
+            if (isEditing) {
+                editButton.textContent = '完成';
+                document.querySelector('.checkout-btn').textContent = '删除';
+                document.querySelector('.checkout-btn').classList.remove('bg-primary');
+                document.querySelector('.checkout-btn').classList.add('bg-red-500');
+            } else {
+                editButton.textContent = '编辑';
+                document.querySelector('.checkout-btn').textContent = '结算(3)';
+                document.querySelector('.checkout-btn').classList.add('bg-primary');
+                document.querySelector('.checkout-btn').classList.remove('bg-red-500');
+            }
+        });
+        
+        // 全选功能
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const itemCheckboxes = document.querySelectorAll('.item-checkbox');
+        
+        selectAllCheckbox.addEventListener('change', function() {
+            const isChecked = selectAllCheckbox.checked;
+            itemCheckboxes.forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        });
+        
+        // 商品选择功能
+        itemCheckboxes.forEach(itemCheckbox => {
+            itemCheckbox.addEventListener('change', function() {
+                updateSelectAllStatus();
+            });
+        });
+        
+        // 更新全选状态
+        function updateSelectAllStatus() {
+            const allChecked = Array.from(itemCheckboxes).every(checkbox => checkbox.checked);
+            selectAllCheckbox.checked = allChecked;
+        }
+        
+        // 数量加减功能
+        const minusButtons = document.querySelectorAll('.quantity-btn.minus');
+        const plusButtons = document.querySelectorAll('.quantity-btn.plus');
+        
+        minusButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const input = button.nextElementSibling;
+                let value = parseInt(input.value);
+                if (value > 1) {
+                    input.value = value - 1;
+                }
+            });
+        });
+        
+        plusButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const input = button.previousElementSibling;
+                let value = parseInt(input.value);
+                input.value = value + 1;
+            });
+        });
+        
+        // 切换空购物车/有商品视图的示例函数
+        function toggleCartView(isEmpty) {
+            const cartItems = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            const checkoutBar = document.querySelector('.checkout-bar');
+            
+            if (isEmpty) {
+                cartItems.classList.add('hidden');
+                emptyCart.classList.remove('hidden');
+                checkoutBar.classList.add('hidden');
+            } else {
+                cartItems.classList.remove('hidden');
+                emptyCart.classList.add('hidden');
+                checkoutBar.classList.remove('hidden');
+            }
+        }
+        
+        // 示例：通过URL参数控制是否显示空购物车
+        const urlParams = new URLSearchParams(window.location.search);
+        const showEmpty = urlParams.get('empty') === 'true';
+        toggleCartView(showEmpty);
+        
+        // 结算按钮点击事件
+        document.getElementById('checkoutBtn').addEventListener('click', function() {
+            if (!isEditing) {
+                // 如果不是编辑状态，跳转到结算页面
+                window.location.href = 'checkout.html';
+            } else {
+                // 如果是编辑状态，执行删除操作
+                const checkedItems = document.querySelectorAll('.item-checkbox:checked');
+                if (checkedItems.length > 0) {
+                    if (confirm('确定要删除选中的商品吗？')) {
+                        checkedItems.forEach(checkbox => {
+                            const cartItem = checkbox.closest('.cart-item');
+                            cartItem.remove();
+                        });
+                        
+                        // 检查是否还有商品
+                        const remainingItems = document.querySelectorAll('.cart-item');
+                        if (remainingItems.length === 0) {
+                            toggleCartView(true);
+                        }
+                    }
+                } else {
+                    alert('请选择要删除的商品');
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

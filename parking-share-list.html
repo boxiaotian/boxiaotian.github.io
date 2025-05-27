@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>邻家慧享 - 车位共享列表</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C00',
+                        secondary: '#4CAF50',
+                        background: '#F8F8F8',
+                        textDark: '#333333',
+                        textLight: '#666666'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F8F8;
+            touch-action: manipulation; /* 防止默认触摸行为，如双击放大 */
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px; /* 标准 iPhone 高度 */
+            margin: 20px auto;
+            background-color: #F8F8F8;
+            border-radius: 40px;
+            overflow: hidden; /* 关键：用于包含屏幕内容 */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px; /* 与容器圆角匹配 */
+            overflow: hidden; /* 确保内容保持在屏幕边界内 */
+            background-color: #F8F8F8; /* 在这里使用背景色 */
+            display: flex; /* 使用 flex 管理头部、内容 */
+            flex-direction: column;
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 20; /* 更高的 z-index */
+        }
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 20px 0;
+            height: 44px; /* 标准状态栏高度 */
+            background-color: white; /* 状态栏背景色 */
+            position: relative;
+            z-index: 15; /* 在 Notch 下方 */
+            flex-shrink: 0; /* 防止在 flex 列中缩小 */
+        }
+        .time {
+            font-size: 14px;
+            line-height: 44px;
+            color: #333333; /* 文字颜色 */
+        }
+        .icons {
+            font-size: 14px;
+            line-height: 44px;
+            color: #333333; /* 文字颜色 */
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            height: 50px; /* 头部导航高度 */
+            background-color: white; /* 头部导航背景色 */
+            border-bottom: 1px solid #f0f0f0; /* 底部细线 */
+            flex-shrink: 0; /* 防止缩小 */
+            z-index: 10;
+        }
+        .sticky-container {
+            position: sticky;
+            top: 0; /* 粘在顶部 */
+            background-color: #F8F8F8; /* 背景色，防止内容透出 */
+            z-index: 5; /* 在头部导航下方 */
+            flex-shrink: 0; /* 防止缩小 */
+        }
+        .search-filter-bar {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            background-color: white; /* 搜索筛选栏背景色 */
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .search-input-container {
+             position: relative;
+             flex-grow: 1;
+        }
+        .search-input {
+            width: 100%;
+            height: 36px;
+            background-color: #F8F8F8; /* 输入框背景色 */
+            border-radius: 18px;
+            border: none;
+            padding: 0 15px 0 40px; /* 左侧为搜索图标留空间 */
+            font-size: 14px;
+            color: #333333;
+            outline: none;
+        }
+        .search-icon-input {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999999; /* 图标颜色 */
+            font-size: 16px;
+        }
+        .filter-button {
+            background-color: transparent;
+            border: none;
+            font-size: 14px;
+            color: #666666; /* 文字颜色 */
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+        }
+        .content-area {
+             flex-grow: 1; /* 允许内容占据剩余空间 */
+             overflow-y: auto; /* 启用滚动 */
+             -webkit-overflow-scrolling: touch;
+             background: #F8F8F8; /* 内容区域背景色 */
+             padding: 16px; /* 列表内边距 */
+             padding-bottom: 20px; /* 底部留白 */
+        }
+
+        /* 列表项样式 */
+        .parking-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 两列等宽 */
+            gap: 12px; /* 网格项之间的间隙 */
+        }
+        .parking-item {
+             background-color: white; /* 卡片背景色 */
+             border-radius: 8px;
+             overflow: hidden;
+             box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* 轻微阴影 */
+             display: block; /* 改为块级元素适应网格 */
+        }
+        .parking-item-image {
+            width: 100%; /* 图片宽度占满列 */
+            height: 120px; /* 图片固定高度，可根据需要调整 */
+            object-fit: cover; /* 图片填充并裁剪 */
+        }
+        .parking-item-info {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+        .parking-item-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333333;
+            margin-bottom: 4px;
+        }
+        .parking-item-meta {
+            font-size: 12px;
+            color: #666666;
+            margin-bottom: 4px;
+        }
+        .parking-item-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #FF8C00; /* 主色 */
+        }
+        .tab-item-parking.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background-color: #FF8C00; /* 主色 */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="time font-semibold">9:41</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+
+            <!-- 头部标题栏 -->
+            <div class="header-bar">
+                <button onclick="window.history.back()" class="text-xl text-textDark focus:outline-none">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h1 class="text-lg font-bold text-textDark flex-1 text-center">车位共享</h1>
+            </div>
+
+            <!-- 搜索和筛选区域 (粘性) -->
+            <div class="sticky-container">
+                <div class="search-filter-bar">
+                    <div class="search-input-container">
+                        <i class="fas fa-search search-icon-input"></i>
+                        <input type="text" class="search-input" placeholder="搜索车位">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 内容区域 (滚动部分) -->
+            <div class="content-area">
+                <div class="parking-list">
+                    <!-- 示例车位列表项 -->
+                    <div class="parking-item">
+                        <img src="https://picsum.photos/id/1043/100/100" alt="车位图片" class="parking-item-image">
+                        <div class="parking-item-info">
+                            <div class="parking-item-title">阳光花园小区车位</div>
+                            <div class="flex items-center mt-1 mb-1">
+                                <img src="https://picsum.photos/id/1011/20/20" alt="发布者头像" class="rounded-full w-5 h-5 mr-2 object-cover">
+                                <span class="text-xs text-textLight">社区王先生</span>
+                            </div>
+                            <div class="text-xs text-textLight mb-1">
+                                <span>阳光花园小区</span>
+                            </div>
+                            <div class="parking-item-price">¥ 5/小时</div>
+                        </div>
+                    </div>
+
+                    <div class="parking-item">
+                        <img src="https://picsum.photos/id/1050/100/100" alt="车位图片" class="parking-item-image">
+                        <div class="parking-item-info">
+                            <div class="parking-item-title">月亮湾小区访客车位</div>
+                            <div class="flex items-center mt-1 mb-1">
+                                 <img src="https://picsum.photos/id/1005/20/20" alt="发布者头像" class="rounded-full w-5 h-5 mr-2 object-cover">
+                                 <span class="text-xs text-textLight">社区李女士</span>
+                             </div>
+                             <div class="text-xs text-textLight mb-1">
+                                 <span>月亮湾小区</span>
+                             </div>
+                            <div class="parking-item-price">¥ 30/天</div>
+                        </div>
+                    </div>
+
+                    <div class="parking-item">
+                         <img src="https://picsum.photos/id/1056/100/100" alt="车位图片" class="parking-item-image">
+                         <div class="parking-item-info">
+                             <div class="parking-item-title">城市广场附近商用车位</div>
+                             <div class="flex items-center mt-1 mb-1">
+                                 <img src="https://picsum.photos/id/1009/20/20" alt="发布者头像" class="rounded-full w-5 h-5 mr-2 object-cover">
+                                 <span class="text-xs text-textLight">社区赵大姐</span>
+                             </div>
+                             <div class="text-xs text-textLight mb-1">
+                                 <span>城市广场附近</span>
+                             </div>
+                             <div class="parking-item-price">¥ 8/小时</div>
+                         </div>
+                     </div>
+                     <!-- 添加更多示例列表项以填充页面，使其可滚动 -->
+                     <div class="parking-item">
+                         <img src="https://picsum.photos/id/1062/100/100" alt="车位图片" class="parking-item-image">
+                         <div class="parking-item-info">
+                             <div class="parking-item-title">幸福里小区临停车位</div>
+                             <div class="flex items-center mt-1 mb-1">
+                                 <img src="https://picsum.photos/id/1018/20/20" alt="发布者头像" class="rounded-full w-5 h-5 mr-2 object-cover">
+                                 <span class="text-xs text-textLight">社区钱先生</span>
+                             </div>
+                             <div class="text-xs text-textLight mb-1">
+                                 <span>幸福里小区</span>
+                             </div>
+                             <div class="parking-item-price">¥ 4/小时</div>
+                         </div>
+                     </div>
+                      <div class="parking-item">
+                         <img src="https://picsum.photos/id/1069/100/100" alt="车位图片" class="parking-item-image">
+                         <div class="parking-item-info">
+                             <div class="parking-item-title">湖畔嘉园小区私家车位</div>
+                             <div class="flex items-center mt-1 mb-1">
+                                 <img src="https://picsum.photos/id/1020/20/20" alt="发布者头像" class="rounded-full w-5 h-5 mr-2 object-cover">
+                                 <span class="text-xs text-textLight">社区孙女士</span>
+                             </div>
+                             <div class="text-xs text-textLight mb-1">
+                                 <span>湖畔嘉园小区</span>
+                             </div>
+                             <div class="parking-item-price">¥ 6/小时</div>
+                         </div>
+                     </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 返回按钮
+        document.querySelector('.header-bar .fa-chevron-left').parentElement.addEventListener('click', function() {
+            window.history.back();
+        });
+
+        // 选项卡切换逻辑
+        document.querySelectorAll('.tab-item-parking').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有选项卡的 active 样式
+                document.querySelectorAll('.tab-item-parking').forEach(t => {
+                    t.classList.remove('active', 'text-primary', 'font-semibold');
+                    t.classList.add('text-textLight');
+                });
+
+                // 为当前点击的选项卡添加 active 样式
+                this.classList.add('active', 'text-primary', 'font-semibold');
+                this.classList.remove('text-textLight');
+
+                // TODO: 根据 data-filter-type 执行相应的过滤/排序逻辑
+                const filterType = this.getAttribute('data-filter-type');
+                console.log(`Clicked filter tab: ${filterType}`);
+                // alert(`执行 ${filterType} 过滤/排序`); // Optional: show alert for testing
+            });
+        });
+
+        // placeholder for list item click
+        document.querySelectorAll('.parking-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // alert('跳转到车位详情页');
+                window.location.href = 'parking-share-detail.html'; // 跳转到详情页
+            });
+        });
+
+        // placeholder for publish button click
+        // document.querySelector('.header-bar .fa-plus').parentElement.addEventListener('click', function() {
+        //     alert('跳转到发布车位页面');
+        // });
+
+        // Sticky search/filter bar is handled by CSS position: sticky
+
+        // 选项卡排序图标切换逻辑
+        document.querySelectorAll('.tab-item-parking').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const filterType = this.getAttribute('data-filter-type');
+                const icon = this.querySelector('.fas');
+
+                // Reset icons on other filter tabs
+                document.querySelectorAll('.tab-item-parking .fas').forEach(otherIcon => {
+                     if (otherIcon !== icon) {
+                         otherIcon.classList.remove('fa-sort-up', 'fa-sort-down');
+                         otherIcon.classList.add('fa-sort');
+                     }
+                });
+
+                if (filterType === 'price' || filterType === 'distance') {
+                    if (icon.classList.contains('fa-sort') || icon.classList.contains('fa-sort-down')) {
+                        icon.classList.remove('fa-sort', 'fa-sort-down');
+                        icon.classList.add('fa-sort-up'); // Switch to ascending
+                    } else {
+                         icon.classList.remove('fa-sort-up');
+                         icon.classList.add('fa-sort-down'); // Switch to descending
+                    }
+                } else if (filterType === 'comprehensive') {
+                     // '综合' tab clicked, reset all sort icons
+                     document.querySelectorAll('.tab-item-parking .fas').forEach(otherIcon => {
+                         otherIcon.classList.remove('fa-sort-up', 'fa-sort-down');
+                         otherIcon.classList.add('fa-sort');
+                     });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

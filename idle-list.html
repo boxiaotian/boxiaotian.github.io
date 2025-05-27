@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>邻家慧享 - 闲置转让</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF8C00',
+                        secondary: '#4CAF50',
+                        background: '#F8F8F8',
+                        textDark: '#333333',
+                        textLight: '#666666'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F8F8F8;
+            touch-action: manipulation;
+        }
+        .phone-container {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 40px;
+            overflow: hidden; /* Allows screen content to respect border-radius */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .phone-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            overflow: hidden; /* Ensures content stays within screen bounds */
+            background-color: #F8F8F8; /* Use background color here */
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 30px;
+            background-color: #000;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 20; /* Higher z-index for notch */
+        }
+        .status-bar {
+            height: 44px;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 15; /* Below notch, above content */
+            position: sticky; /* Keep status bar visible with top elements */
+            top: 0;
+        }
+        .header-bar {
+            height: 50px; /* Approximate height */
+            width: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 44px; /* Below status bar */
+            z-index: 10;
+        }
+        .search-filter-bar {
+            width: 100%;
+            background-color: white;
+            padding: 8px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 94px; /* Below header bar (44 + 50) */
+            z-index: 10;
+        }
+        .content-area {
+            /* Adjusted height to accommodate sticky bars */
+            height: calc(100% - 44px - 50px - 40px); /* screen height - status - header - search/filter (approx) */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            background: #F8F8F8;
+            padding: 16px; /* Add some padding inside the content area */
+        }
+        .idle-item-card {
+             background-color: white;
+             border-radius: 8px;
+             overflow: hidden;
+             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+             margin-bottom: 12px;
+             display: flex;
+             padding: 12px;
+             cursor: pointer;
+             transition: box-shadow 0.2s ease-in-out;
+        }
+        .idle-item-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .item-image {
+             width: 100px; /* Fixed width for image */
+             height: 100px; /* Fixed height for image */
+             border-radius: 4px;
+             object-fit: cover;
+             flex-shrink: 0; /* Prevent image from shrinking */
+        }
+        .item-info {
+            flex-grow: 1; /* Allow info area to take remaining space */
+            margin-left: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around; /* Adjusted justify */
+        }
+        .item-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333333;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Limit title to 2 lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .item-meta {
+             font-size: 11px;
+             color: #666666;
+             margin-top: 0px; /* Adjusted margin */
+        }
+        .item-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #FF8C00;
+            margin-top: auto; /* Push price to bottom */
+        }
+        .delivery-tab {
+            display: inline-block;
+            font-size: 10px; /* Smaller font for tab */
+            padding: 2px 8px; /* Padding for tab */
+            border-radius: 9999px; /* Full rounded */
+            margin-right: 8px; /* Space between tab and title */
+            /* Color will be set in HTML based on type */
+            vertical-align: text-bottom;
+        }
+        .publisher-info {
+            display: flex;
+            align-items: center;
+            margin-top: 4px; /* Space above publisher info */
+            margin-bottom: 4px; /* Space below publisher info */
+        }
+        .publisher-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 9999px;
+            object-fit: cover;
+            margin-right: 6px;
+        }
+        .modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex; /* Use flex to align content */
+            justify-content: flex-end; /* Align content to the right */
+            align-items: stretch; /* Make content fill height */
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            width: 85%; /* Drawer width */
+            height: 100%; /* Drawer height */
+            border-radius: 0; /* Remove border radius for drawer */
+            padding: 16px; /* Inner padding for content */
+            overflow-y: auto; /* Enable scrolling for content */
+            transform: translateX(100%); /* Initially hide off-screen */
+            transition: transform 0.3s ease-out; /* Add transition */
+        }
+        /* Style for when modal is visible */
+        .modal:not(.hidden) .modal-content {
+            transform: translateX(0); /* Slide in */
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+        }
+        .modal-body {
+            margin-bottom: 16px;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="notch"></div>
+        <div class="phone-screen">
+            <!-- 状态栏 -->
+            <div class="status-bar">
+                <div class="time font-semibold">9:41</div>
+                <div class="icons flex gap-1">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-full"></i>
+                </div>
+            </div>
+            
+            <!-- 头部标题栏 -->
+            <div class="header-bar">
+                <button onclick="window.history.back()" class="mr-3 text-xl text-textDark focus:outline-none">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <h1 class="text-lg font-bold text-textDark flex-1">闲置转让</h1>
+            </div>
+
+            <!-- 搜索/筛选栏 - 吸顶 -->
+             <div class="search-filter-bar flex items-center">
+                <div class="search-box bg-gray-100 rounded-full flex items-center px-3 py-1.5 flex-1 mr-3">
+                    <i class="fas fa-search text-gray-400 mr-2 text-sm"></i>
+                    <input type="text" placeholder="搜索闲置物品" class="bg-transparent text-sm w-full outline-none">
+                </div>
+                <!-- Placeholder for filter/sort button -->
+                <button class="text-sm text-textLight focus:outline-none" onclick="showFilterModal()">
+                     <i class="fas fa-sliders-h mr-1"></i>筛选
+                </button>
+             </div>
+
+            <!-- 内容区域 (商品列表) -->
+            <div class="content-area">
+                <div class="idle-items-list">
+
+                    <!-- 闲置物品卡片示例 1 -->
+                    <div class="idle-item-card" onclick="window.location.href='idle-detail.html'">
+                        <img src="https://picsum.photos/id/237/100/100" alt="物品图片" class="item-image">
+                        <div class="item-info">
+                            <div class="item-title flex-1">
+                                <span class="delivery-tab bg-secondary text-white">自提</span> <!-- Delivery Tab -->
+                                <span>几乎全新！舒适懒人沙发，米白色几乎全新！舒适懒人沙发，米白色</span>
+                            </div>
+                             <div class="publisher-info">
+                                 <img src="https://picsum.photos/id/64/20/20" alt="头像" class="publisher-avatar">
+                                 <span class="text-xs text-textLight">爱家的橙子</span>
+                             </div>
+                             <div class="item-meta">发布于 1小时前 · 九成新</div>
+                             <div class="item-price">¥ 150</div>
+                        </div>
+                    </div>
+
+                    <!-- 闲置物品卡片示例 2 -->
+                    <div class="idle-item-card" onclick="window.location.href='idle-detail.html'">
+                        <img src="https://picsum.photos/id/250/100/100" alt="物品图片" class="item-image">
+                        <div class="item-info">
+                            <div class="item-title flex-1">
+                                <span class="delivery-tab bg-primary text-white">送货上门</span> <!-- Delivery Tab -->
+                                <span>经典款吉他，送新手配件</span>
+                            </div>
+                             <div class="publisher-info">
+                                 <img src="https://picsum.photos/id/1011/20/20" alt="头像" class="publisher-avatar">
+                                 <span class="text-xs text-textLight">阳光大白</span>
+                             </div>
+                             <div class="item-meta">发布于 昨天 · 八成新</div>
+                            <div class="item-price">¥ 600</div>
+                        </div>
+                    </div>
+
+                     <!-- 闲置物品卡片示例 3 -->
+                    <div class="idle-item-card" onclick="window.location.href='idle-detail.html'">
+                        <img src="https://picsum.photos/id/267/100/100" alt="物品图片" class="item-image">
+                        <div class="item-info">
+                            <div class="item-title flex-1">
+                                <span class="delivery-tab bg-secondary text-white">自提</span> <!-- Delivery Tab -->
+                                <span>儿童绘本套装，适合3-6岁</span>
+                            </div>
+                             <div class="publisher-info">
+                                 <img src="https://picsum.photos/id/1027/20/20" alt="头像" class="publisher-avatar">
+                                 <span class="text-xs text-textLight">快乐小马</span>
+                             </div>
+                             <div class="item-meta">发布于 2天前 · 几乎全新</div>
+                             <div class="item-price">¥ 80</div>
+                        </div>
+                    </div>
+
+                    <!-- 闲置物品卡片示例 4 -->
+                    <div class="idle-item-card" onclick="window.location.href='idle-detail.html'">
+                        <img src="https://picsum.photos/id/278/100/100" alt="物品图片" class="item-image">
+                        <div class="item-info">
+                            <div class="item-title flex-1">
+                                <span class="delivery-tab bg-primary text-white">送货上门</span> <!-- Delivery Tab -->
+                                <span>品牌运动手环，带心率监测</span>
+                            </div>
+                             <div class="publisher-info">
+                                 <img src="https://picsum.photos/id/1035/20/20" alt="头像" class="publisher-avatar">
+                                 <span class="text-xs text-textLight">社区达人</span>
+                             </div>
+                             <div class="item-meta">发布于 3天前 · 七成新</div>
+                             <div class="item-price">¥ 120</div>
+                        </div>
+                    </div>
+
+                     <!-- 闲置物品卡片示例 5 -->
+                    <div class="idle-item-card" onclick="window.location.href='idle-detail.html'">
+                        <img src="https://picsum.photos/id/299/100/100" alt="物品图片" class="item-image">
+                        <div class="item-info">
+                            <div class="item-title flex-1">
+                                <span class="delivery-tab bg-secondary text-white">自提</span> <!-- Delivery Tab -->
+                                <span>闲置哑铃一对，各10kg</span>
+                            </div>
+                             <div class="publisher-info">
+                                 <img src="https://picsum.photos/id/1043/20/20" alt="头像" class="publisher-avatar">
+                                 <span class="text-xs text-textLight">运动小健</span>
+                             </div>
+                             <div class="item-meta">发布于 4天前 · 八成新</div>
+                             <div class="item-price">¥ 90</div>
+                        </div>
+                    </div>
+
+                     <!-- 闲置物品卡片示例 6 -->
+                    <div class="idle-item-card" onclick="window.location.href='idle-detail.html'">
+                        <img src="https://picsum.photos/id/301/100/100" alt="物品图片" class="item-image">
+                        <div class="item-info">
+                            <div class="item-title flex-1">
+                                <span class="delivery-tab bg-primary text-white">送货上门</span> <!-- Delivery Tab -->
+                                <span>多功能料理机，送全套配件</span>
+                            </div>
+                             <div class="publisher-info">
+                                 <img src="https://picsum.photos/id/1055/20/20" alt="头像" class="publisher-avatar">
+                                 <span class="text-xs text-textLight">美食家园</span>
+                             </div>
+                             <div class="item-meta">发布于 5天前 · 九五成新</div>
+                             <div class="item-price">¥ 350</div>
+                        </div>
+                    </div>
+
+                     <!-- 闲置物品卡片示例 7 -->
+                    <div class="idle-item-card" onclick="window.location.href='idle-detail.html'">
+                        <img src="https://picsum.photos/id/312/100/100" alt="物品图片" class="item-image">
+                        <div class="item-info">
+                            <div class="item-title flex-1">
+                                <span class="delivery-tab bg-secondary text-white">自提</span> <!-- Delivery Tab -->
+                                <span>闲置笔记本电脑包</span>
+                            </div>
+                             <div class="publisher-info">
+                                 <img src="https://picsum.photos/id/1062/20/20" alt="头像" class="publisher-avatar">
+                                 <span class="text-xs text-textLight">爱学习的小明</span>
+                             </div>
+                             <div class="item-meta">发布于 6天前 · 全新</div>
+                             <div class="item-price">¥ 50</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 筛选模态窗口 -->
+             <div class="modal hidden" id="filterModal">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h3 class="text-base font-medium text-textDark">筛选</h3>
+                         <button class="close-btn text-gray-400" onclick="closeFilterModal()">
+                             <i class="fas fa-times"></i>
+                         </button>
+                     </div>
+                     <div class="modal-body">
+                         <!-- Placeholder Filter Options -->
+                         <div class="mb-4">
+                             <div class="text-sm font-medium text-textDark mb-2">物品分类</div>
+                             <div class="flex flex-wrap gap-2 text-sm">
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer bg-primary text-white border-primary">全部</span>
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer">家具</span>
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer">数码</span>
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer">服饰</span>
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer">图书</span>
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer">其他</span>
+                             </div>
+                         </div>
+                          <div class="mb-4">
+                             <div class="text-sm font-medium text-textDark mb-2">新旧程度</div>
+                             <div class="flex flex-wrap gap-2 text-sm">
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer bg-primary text-white border-primary">不限</span>
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer">全新</span>
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer">几乎全新</span>
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer">九成新</span>
+                                 <span class="px-3 py-1 border rounded-full cursor-pointer">八成新及以下</span>
+                             </div>
+                         </div>
+                          <div class="mb-4">
+                             <div class="text-sm font-medium text-textDark mb-2">价格范围</div>
+                              <input type="text" placeholder="最低价" class="w-20 px-2 py-1 border rounded-md text-sm mr-2">
+                             <span>-</span>
+                              <input type="text" placeholder="最高价" class="w-20 px-2 py-1 border rounded-md text-sm ml-2">
+                         </div>
+                     </div>
+                     <div class="modal-footer flex justify-between p-3">
+                         <button class="text-sm text-textLight px-4 py-2 rounded-lg" onclick="alert('重置筛选')">重置</button>
+                         <button class="bg-primary text-white px-8 py-2 rounded-lg text-sm" onclick="closeFilterModal()">确定</button>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <script>
+        // Filter Modal JS
+        const filterModal = document.getElementById('filterModal');
+        
+        function showFilterModal() {
+            filterModal.classList.remove('hidden');
+        }
+        
+        function closeFilterModal() {
+            filterModal.classList.add('hidden');
+        }
+        
+        // Close modal when clicking outside modal content
+        filterModal.addEventListener('click', function(e) {
+            if (e.target === filterModal) {
+                closeFilterModal();
+            }
+        });
+        
+        // Placeholder for filter option selection logic
+        // Add event listeners to filter options within the modal if needed for selection state
+
+    </script>
+</body>
+</html> 
